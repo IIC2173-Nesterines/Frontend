@@ -1,9 +1,7 @@
 'use client';
 
 import { useUser } from '@auth0/nextjs-auth0/client';
-import {
-  Button, Typography, Box,
-} from '@mui/material';
+import { Box } from '@mui/material';
 import FlightsDashboard from '@/components/FlightsDashboard';
 import NavBar from '@/components/NavBar';
 

@@ -6,7 +6,8 @@ import {
 } from '@mui/material';
 import FlightsDashboard from '@/components/FlightsDashboard';
 import { useEffect, useState } from 'react';
-import { UserAPI } from './api/user.api';
+import { UserAPI } from '../api/user.api';
+import NavBar from '@/components/NavBar';
 
 export default function Home() {
   const { user, isLoading } = useUser();
@@ -40,19 +41,19 @@ export default function Home() {
   return (
     <main className="flex h-screen w-full flex-col bg-white justify-center">
       {user ? (
-        <Box className="flex w-full h-full flex-col items-center mt-6 gap-8 justify-center mt-16">
-          <Typography variant="body1" className="text-black">
+        <Box className="flex w-full h-full flex-col items-center gap-8 justify-center">
+          <NavBar />
+          <Typography variant="h4" className="text-black">
             Welcome
             {' '}
-            {user?.name || ''}
+            {user?.nickname || ''}
             {' '}
             !
           </Typography>
-          <Button variant="contained" href="/api/auth/logout" className="w-1/6">Sign out</Button>
           <FlightsDashboard />
         </Box>
       ) : (
-        <Box className="flex w-full h-full flex-col items-center mt-6 gap-8 mt-16">
+        <Box className="flex w-full h-full flex-col items-center gap-8">
           <NavBar />
         </Box>
       )}

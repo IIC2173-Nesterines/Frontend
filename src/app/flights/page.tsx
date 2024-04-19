@@ -1,10 +1,10 @@
 'use client';
 
 import { useUser } from '@auth0/nextjs-auth0/client';
-import { Box } from '@mui/material';
 import NavBar from '@/components/NavBar';
+import FlightsDashboard from '@/components/FlightsDashboard';
 
-export default function Home() {
+export default function FlightsPage() {
   const { user, isLoading } = useUser();
 
   if (isLoading) return <div>Loading...</div>;
@@ -12,13 +12,14 @@ export default function Home() {
   return (
     <main className="flex h-screen w-full flex-col bg-white justify-center">
       {user ? (
-        <Box className="flex w-full h-full flex-col items-center mt-6 gap-8">
+        <div className="flex w-full h-full flex-col items-center mt-6 gap-8 justify-center">
           <NavBar />
-        </Box>
+          <FlightsDashboard />
+        </div>
       ) : (
-        <Box className="flex w-full h-full flex-col items-center mt-6 gap-8">
+        <div className="flex w-full h-full flex-col items-center mt-6 gap-8">
           <NavBar />
-        </Box>
+        </div>
       )}
     </main>
   );

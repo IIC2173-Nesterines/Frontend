@@ -13,11 +13,14 @@ export default function NavBar() {
           <Typography variant="h5" sx={{ flexGrow: 1 }}>
             <a href="/" style={{ textDecoration: 'none', color: 'inherit' }}>Nesterines Flights</a>
           </Typography>
-          <Typography variant="h6" sx={{ color: 'white', flexGrow: 0, marginRight: 2 }}>
+          <Typography variant="h6" sx={{ color: 'white', flexGrow: 0, marginRight: 3 }}>
             {user?.nickname || ''}
           </Typography>
-          <Button variant="contained" href="/profile" sx={{ backgroundColor: '#fff', color: '#222', marginRight: 1 }}>
+          <Button variant="contained" href="/profile" sx={{ backgroundColor: '#fff', color: '#222', marginRight: 2 }}>
             My Profile
+          </Button>
+          <Button variant="contained" href="/flights" sx={{ backgroundColor: '#fff', color: '#222', marginRight: 2 }}>
+            Check Flights
           </Button>
           <Button variant="contained" href="/api/auth/logout" sx={{ backgroundColor: '#fff', color: '#222' }}>
             Sign out

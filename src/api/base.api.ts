@@ -4,24 +4,19 @@ export const oauthAxiosInstance = axios.create();
 
 // Función para obtener el token de acceso
 const getToken = async () => {
-  try {
-    const options = {
-      method: 'POST',
-      url: 'https://dev-6scoyihmj3sd05vg.us.auth0.com/oauth/token',
-      headers: { 'content-type': 'application/x-www-form-urlencoded' },
-      data: new URLSearchParams({
-        grant_type: 'client_credentials',
-        client_id: process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || '',
-        client_secret: process.env.NEXT_PUBLIC_AUTH0_CLIENT_SECRET || '',
-        audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE || '',
-      }),
-    };
-    const response = await oauthAxiosInstance(options);
-    return response.data.access_token;
-  } catch (error) {
-    console.error('Error getting access token:', error);
-    throw error;
-  }
+  const options = {
+    method: 'POST',
+    url: 'https://dev-6scoyihmj3sd05vg.us.auth0.com/oauth/token',
+    headers: { 'content-type': 'application/x-www-form-urlencoded' },
+    data: new URLSearchParams({
+      grant_type: 'client_credentials',
+      client_id: process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || '',
+      client_secret: process.env.NEXT_PUBLIC_AUTH0_CLIENT_SECRET || '',
+      audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE || '',
+    }),
+  };
+  const response = await oauthAxiosInstance(options);
+  return response.data.access_token;
 };
 
 export const axiosInstance = axios.create({

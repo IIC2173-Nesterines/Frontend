@@ -2,12 +2,12 @@
 
 import { useUser } from '@auth0/nextjs-auth0/client';
 import {
-  Button, Typography, Box,
+  Typography, Box,
 } from '@mui/material';
 import FlightsDashboard from '@/components/FlightsDashboard';
 import { useEffect, useState } from 'react';
-import { UserAPI } from '../api/user.api';
 import NavBar from '@/components/NavBar';
+import { UserAPI } from '../api/user.api';
 
 export default function Home() {
   const { user, isLoading } = useUser();

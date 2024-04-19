@@ -4,6 +4,7 @@ import {
   Box, Pagination,
 } from '@mui/material';
 import FlightCard from '@/components/FlightCard';
+import { FlightAPI } from '@/api/flight.api';
 
 export default function FlightsDashboard() {
   const [flights, setFlight] = useState([{
@@ -20,52 +21,13 @@ export default function FlightsDashboard() {
   };
 
   const fetchFlights = async () => {
-    // TODO: Call API to fetch flights
-    const data = [
-      {
-        id: 1,
-        from: 'New York',
-        to: 'London',
-        date: '01 Jan 2023',
-        airline: 'British Airways',
-      },
-      {
-        id: 2,
-        from: 'London',
-        to: 'Paris',
-        date: '05 Jan 2023',
-        airline: 'EasyJet',
-      },
-      {
-        id: 3,
-        from: 'New York',
-        to: 'London',
-        date: '01 Jan 2023',
-        airline: 'British Airways',
-      },
-      {
-        id: 4,
-        from: 'London',
-        to: 'Paris',
-        date: '05 Jan 2023',
-        airline: 'EasyJet',
-      },
-      {
-        id: 5,
-        from: 'New York',
-        to: 'London',
-        date: '01 Jan 2023',
-        airline: 'British Airways',
-      },
-      {
-        id: 6,
-        from: 'London',
-        to: 'Paris',
-        date: '05 Jan 2023',
-        airline: 'EasyJet',
-      },
-    ];
-    setFlight(data);
+    try {
+      const { data } = await FlightAPI.getFlights();
+      console.log('hay esto', data);
+      setFlight(data);
+    } catch (error) {
+      console.error('Error fetching flights:', error);
+    }
   };
 
   useEffect(() => {

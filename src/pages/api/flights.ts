@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiRequest, NextApiResponse } from "next";
 
 type Airport = {
   name: string;
@@ -37,26 +37,26 @@ export default function handler(
     flights: [
       {
         departure_airport: {
-          name: 'Santiago Airport',
-          id: 'SCL',
-          time: '2024-04-13 10:00',
+          name: "Santiago Airport",
+          id: "SCL",
+          time: "2024-04-13 10:00"
         },
         arrival_airport: {
-          name: 'New York Airport',
-          id: 'JFK',
-          time: '2024-04-13 18:00',
+          name: "New York Airport",
+          id: "JFK",
+          time: "2024-04-13 18:00"
         },
         duration: 480,
-        airplane: 'Boeing 747',
-        airline: 'Example Airlines',
-        airline_logo: 'example.png',
-      },
+        airplane: "Boeing 747",
+        airline: "Example Airlines",
+        airline_logo: "example.png",
+      }
     ],
     carbon_emissions: { this_flight: 100 },
     price: 500000,
-    currency: 'CLP',
-    airlineLogo: 'example_airline_logo.png',
-    tickets_available: 90,
+    currency: "CLP",
+    airlineLogo: "example_airline_logo.png",
+    tickets_available: 90
   };
 
   const html = `
@@ -112,6 +112,7 @@ export default function handler(
     </html>
   `;
 
-  res.setHeader('Content-Type', 'text/html');
+  res.setHeader("Content-Type", "text/html");
   res.status(200).send(html);
+
 }

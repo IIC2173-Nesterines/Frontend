@@ -77,8 +77,8 @@ export default function FlightsDashboard() {
       <Box className="h-full w-full grid gap-8 flex-wrap p-8 grid-cols-3">
         {
           flights.map((flight) => (
-            <Box>
-              <FlightCard flight={flight} />
+            <Box key={flight.id}>
+              <FlightCard flight={flight} key={flight.id} />
             </Box>
           ))
         }

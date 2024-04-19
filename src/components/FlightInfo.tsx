@@ -83,7 +83,6 @@ export default function FlightInfo() {
           </Grid>
         </Grid>
       </CardContent>
-      <img src={exampleFlight.airline_logo} alt="Airline Logo" style={{ width: '400px', marginRight: '20px' }} />
     </Card>
   );
 }

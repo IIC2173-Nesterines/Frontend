@@ -12,12 +12,12 @@ export default function FlightsPage() {
   return (
     <main className="flex h-screen w-full flex-col bg-white justify-center">
       {user ? (
-        <div className="flex w-full h-full flex-col items-center mt-6 gap-8 justify-center">
+        <div className="flex w-full h-full flex-col items-center gap-8 justify-center">
           <NavBar />
           <FlightsDashboard />
         </div>
       ) : (
-        <div className="flex w-full h-full flex-col items-center mt-6 gap-8">
+        <div className="flex w-full h-full flex-col items-center gap-8">
           <NavBar />
         </div>
       )}

@@ -1,12 +1,13 @@
 {
-  "name": "e1-frontend",
+  "name": "frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "next lint --fix"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^3.5.0",

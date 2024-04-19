@@ -52,14 +52,8 @@ export default function Home() {
           <FlightsDashboard />
         </Box>
       ) : (
-        <Box
-          alignItems="center"
-          display="flex"
-          flexDirection="column"
-          gap={2}
-        >
-          <Typography variant="body1" className="text-black">You are not logged in</Typography>
-          <Button variant="contained" href="/api/auth/login">Log in</Button>
+        <Box className="flex w-full h-full flex-col items-center mt-6 gap-8 mt-16">
+          <NavBar />
         </Box>
       )}
     </main>

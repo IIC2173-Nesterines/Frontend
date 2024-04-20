@@ -10,6 +10,9 @@ import {
 } from '@mui/material';
 
 export default function FlightCard({ flight }: { flight: FlightType }) {
+  const handleViewDetails = () => {
+    window.location.href = `/flights/${flight.id}`; // Cambia la URL en el navegador
+  };
   return (
     <Card className="w-64" variant="outlined">
       <CardContent>
@@ -31,7 +34,7 @@ export default function FlightCard({ flight }: { flight: FlightType }) {
           {flight.airline}
         </Typography>
         <CardActions>
-          <Button size="small">Ver Detalles</Button>
+          <Button size="small" onClick={handleViewDetails}>Ver Detalles</Button>
         </CardActions>
       </CardContent>
     </Card>

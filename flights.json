@@ -1,0 +1,133 @@
+[
+    {
+        "flights": [
+            {
+              "departure_airport": {
+                "name": "Santiago Airport",
+                "id": "SCL",
+                "time": "2024-04-13 10:00"
+              },
+              "arrival_airport": {
+                "name": "New York Airport",
+                "id": "JFK",
+                "time": "2024-04-13 18:00"
+              },
+              "duration": 480,
+              "airplane": "Boeing 747",
+              "airline": "Example Airlines",
+              "airline_logo": "example.png"
+            }
+          ],
+          "carbon_emissions": { "this_flight": 100 },
+          "price": 500000,
+          "currency": "CLP",
+          "airlineLogo": "example_airline_logo.png",
+          "tickets_available": 90,
+          "identifier": 0
+    },
+    {
+        "flights": [
+          {
+            "departure_airport": {
+              "name": "Los Angeles Airport",
+              "id": "LAX",
+              "time": "2024-04-14 08:00"
+            },
+            "arrival_airport": {
+              "name": "London Heathrow Airport",
+              "id": "LHR",
+              "time": "2024-04-14 16:00"
+            },
+            "duration": 600,
+            "airplane": "Airbus A380",
+            "airline": "Fantastic Flights",
+            "airline_logo": "fantastic.png"
+          }
+        ],
+        "carbon_emissions": { "this_flight": 150 },
+        "price": 700000,
+        "currency": "USD",
+        "airlineLogo": "fantastic_airline_logo.png",
+        "tickets_available": 90,
+        "identifier": 1
+    },
+    {
+        "flights": [
+          {
+            "departure_airport": {
+              "name": "Tokyo Narita International Airport",
+              "id": "NRT",
+              "time": "2024-04-15 09:30"
+            },
+            "arrival_airport": {
+              "name": "Paris Charles de Gaulle Airport",
+              "id": "CDG",
+              "time": "2024-04-15 16:30"
+            },
+            "duration": 720,
+            "airplane": "Boeing 787 Dreamliner",
+            "airline": "Skyways",
+            "airline_logo": "skyways.png"
+          }
+        ],
+        "carbon_emissions": { "this_flight": 120 },
+        "price": 600000,
+        "currency": "EUR",
+        "airlineLogo": "skyways_airline_logo.png",
+        "tickets_available": 90,
+        "identifier": 2
+    },
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Hong Kong International Airport",
+            "id": "HKG",
+            "time": "2024-04-16 11:15"
+          },
+          "arrival_airport": {
+            "name": "Sydney Kingsford Smith Airport",
+            "id": "SYD",
+            "time": "2024-04-16 20:45"
+          },
+          "duration": 480,
+          "airplane": "Airbus A330",
+          "airline": "Pacific Airways",
+          "airline_logo": "pacific.png"
+        }
+      ],
+      "carbon_emissions": { "this_flight": 110 },
+      "price": 550000,
+      "currency": "AUD",
+      "airlineLogo": "pacific_airline_logo.png",
+      "tickets_available": 90,
+      "identifier": 3
+    },
+    {
+      "flights": [
+        {
+          "departure_airport": {
+            "name": "Dubai International Airport",
+            "id": "DXB",
+            "time": "2024-04-17 12:30"
+          },
+          "arrival_airport": {
+            "name": "London Heathrow Airport",
+            "id": "LHR",
+            "time": "2024-04-17 17:45"
+          },
+          "duration": 540,
+          "airplane": "Boeing 777",
+          "airline": "Emirates",
+          "airline_logo": "emirates.png"
+        }
+      ],
+      "carbon_emissions": { "this_flight": 130 },
+      "price": 600000,
+      "currency": "GBP",
+      "airlineLogo": "emirates_airline_logo.png",
+      "tickets_available": 90,
+      "identifier": 4
+    } 
+  ]
+  

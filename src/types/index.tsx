@@ -3,17 +3,17 @@ export interface FlightType {
   airlineLogo: string,
   airplane: string,
   arrivalAirportId: string,
-  arrivalDate: string
-  carbonEmission: string
-  createdAt: string
-  currency: string
-  departureAirportId: string
-  departureDate: string
+  arrivalDate: string,
+  carbonEmission: string,
+  createdAt: string,
+  currency: string,
+  departureAirportId: string,
+  departureDate: string,
   duration: number,
   id: number,
   price: number,
-  quantity: number
-  updatedAt: string
+  quantity: number,
+  updatedAt: string,
 }
 
 export interface UserType {

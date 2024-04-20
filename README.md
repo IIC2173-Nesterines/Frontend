@@ -1,40 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# IIC2173 Arquitectura de Sistemas de Software: E1
+Estudiantes:
+* Beatriz Errázuriz
+* Daniel Sebastián
+* Diego Sfeir
+* Eduardo Soto
+* Joaquín Viñuela
 
-## Getting Started
+## Instrucciones para Ejecutar Localmente
 
-First, run the development server:
+Para ejecutar localmente el proyecto, se debe tener sistema operativo Linux o MacOS, con Node.js y Postgresql instalados. Luego, se debe clonar el repositorio del proyecto y abrir una consola en el directorio del frontend. En el directorio del frontend, se debe ejecutar el comando `npm install` para actualizar las dependencias del proyecto. Para correr el proyecto, se debe configurar un archivo `.env` con las siguientes variables de entorno:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+AUTH0_SECRET='1a91ce746bd1544d602acc7cbae4129a03df260b9ac4a0404a5a4bc24ac8f613'
+AUTH0_BASE_URL='http://localhost:3000'
+AUTH0_ISSUER_BASE_URL='https://dev-6scoyihmj3sd05vg.us.auth0.com'
+AUTH0_CLIENT_ID='k8wJz0MWSNDR9MnIGBAAF3BYFOLom2sy'
+AUTH0_CLIENT_SECRET='8E3evGan7KFjYasxij-h0aG0EcncK9iSpjTcn0kwcYt_JGUE_W90AEFq_5_e8qEt'
+AUTH0_AUDIENCE=https://api.e1-iic2173.com
+
+API_BASE_URL= 'http://localhost:3001'
+
+NEXT_PUBLIC_AUTH0_SECRET='1a91ce746bd1544d602acc7cbae4129a03df260b9ac4a0404a5a4bc24ac8f613'
+NEXT_PUBLIC_AUTH0_BASE_URL='http://localhost:3000'
+NEXT_PUBLIC_AUTH0_ISSUER_BASE_URL='https://dev-6scoyihmj3sd05vg.us.auth0.com'
+NEXT_PUBLIC_AUTH0_CLIENT_ID='k8wJz0MWSNDR9MnIGBAAF3BYFOLom2sy'
+NEXT_PUBLIC_AUTH0_CLIENT_SECRET='8E3evGan7KFjYasxij-h0aG0EcncK9iSpjTcn0kwcYt_JGUE_W90AEFq_5_e8qEt'
+NEXT_PUBLIC_AUTH0_AUDIENCE=https://api.e1-iic2173.com
+
+NEXT_PUBLIC_API_BASE_URL= 'http://localhost:3001'
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Finalmente, se debe ejecutar el comando `npm run dev` para correr el proyecto en el puerto 3000. Para que el frontend se pueda conectar el backend, se debe abrir una nueva consola en el directorio de la API en el repositorio del backend y seguir las instrucciones de la documentación

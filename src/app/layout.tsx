@@ -2,7 +2,6 @@ import { UserProvider } from '@auth0/nextjs-auth0/client';
 import type { Metadata } from 'next';
 import React from 'react';
 import './globals.css';
-import NavBar from '@/components/NavBar';
 
 export const metadata: Metadata = {
   title: 'e1-iic2173',

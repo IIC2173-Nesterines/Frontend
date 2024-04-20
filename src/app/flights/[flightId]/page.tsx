@@ -12,7 +12,7 @@ export default function FlightPage({ params }: { params: { flightId: string } })
   return (
     <main className="flex h-screen w-full flex-col bg-white justify-center">
       {user ? (
-        <div className="flex w-full h-full flex-col items-center mt-6 gap-8">
+        <div className="flex w-full h-full flex-col items-center gap-8">
           <NavBar />
           <h1 style={{ color: 'black' }}>
             Flight ID:

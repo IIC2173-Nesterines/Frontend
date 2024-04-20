@@ -23,7 +23,6 @@ export default function FlightsDashboard() {
   const fetchFlights = async () => {
     try {
       const { data } = await FlightAPI.getFlights();
-      console.log('hay esto', data);
       setFlight(data);
     } catch (error) {
       console.error('Error fetching flights:', error);

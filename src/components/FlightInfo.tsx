@@ -1,21 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {
   Card, CardContent, Typography, Button, Grid,
 } from '@mui/material';
+import { FlightAPI } from '@/api/flight.api';
 
-export default function FlightInfo() {
-  const exampleFlight = {
-    departure_airport_name: 'Dubai Airport',
-    arrival_airport_name: 'New York Airport',
-    departure_time: '2023-01-01 10:00',
-    arrival_time: '2023-01-01 15:00',
-    airline: 'American Airlines',
-    airline_logo: 'airline_logo.png',
-    price: 1000000,
-    currency: 'CLP',
-    carbon_emission: 1000,
+export default function FlightInfo({ id } : { id: number }) {
+  const [flight, setFlight] = useState({
+    airline: '',
+    airlineLogo: '',
+    airplane: '',
+    arrivalAirportId: '',
+    arrivalDate: '',
+    carbonEmission: '',
+    createdAt: '',
+    currency: '',
+    departureAirportId: '',
+    departureDate: '',
+    duration: 0,
+    id: 0,
+    price: 0,
+    quantity: 0,
+    updatedAt: '',
+  });
+
+  const fetchFlight = async () => {
+    try {
+      const { data } = await FlightAPI.getFlight(id);
+      setFlight(data);
+    } catch (error) {
+      console.error('Error fetching flight:', error);
+    }
   };
+
+  useEffect(() => {
+    fetchFlight();
+  }, []);
 
   return (
     <Card sx={{
@@ -26,32 +46,32 @@ export default function FlightInfo() {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography variant="h4" component="div">
-              {exampleFlight.departure_airport_name}
+              {flight.departureAirportId}
               {' '}
               to
               {' '}
-              {exampleFlight.arrival_airport_name}
+              {flight.arrivalAirportId}
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <Typography variant="body1" color="text.secondary">
               Departure Date-Time:
               {' '}
-              <strong>{exampleFlight.departure_time}</strong>
+              <strong>{flight.departureDate}</strong>
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <Typography variant="body1" color="text.secondary">
               Arrival Date-Time:
               {' '}
-              <strong>{exampleFlight.arrival_time}</strong>
+              <strong>{flight.arrivalDate}</strong>
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <Typography variant="body1" color="text.secondary">
               Airline:
               {' '}
-              <strong>{exampleFlight.airline}</strong>
+              <strong>{flight.airline}</strong>
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -59,7 +79,7 @@ export default function FlightInfo() {
               Carbon Emission:
               {' '}
               <strong>
-                {exampleFlight.carbon_emission}
+                {flight.carbonEmission}
                 {' '}
                 kg CO2
               </strong>
@@ -70,9 +90,17 @@ export default function FlightInfo() {
               Price:
               {' '}
               <strong>
-                {exampleFlight.price}
+                {flight.price}
                 {' '}
-                {exampleFlight.currency}
+                {flight.currency}
+              </strong>
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="body1" color="text.secondary">
+              Tickets Available:
+              <strong>
+                {flight.quantity}
               </strong>
             </Typography>
           </Grid>

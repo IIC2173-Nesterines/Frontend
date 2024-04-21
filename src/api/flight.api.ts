@@ -1,6 +1,6 @@
 import { axiosInstance } from './base.api';
 
-const viewFlights = 'http://localhost:5000/flights';
+const viewFlights = '/flights';
 
 // eslint-disable-next-line import/prefer-default-export
 export const FlightAPI = {

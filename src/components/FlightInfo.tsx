@@ -25,6 +25,8 @@ export default function FlightInfo({ id } : { id: number }) {
     updatedAt: '',
   });
 
+  const [ticketCount, setTicketCount] = useState(1);
+
   const fetchFlight = async () => {
     try {
       const { data } = await FlightAPI.getFlight(id);
@@ -70,6 +72,17 @@ export default function FlightInfo({ id } : { id: number }) {
           </Grid>
           <Grid item xs={12}>
             <Typography variant="body1" color="text.secondary">
+              Duration:
+              {' '}
+              <strong>
+                {flight.duration}
+                {' '}
+                Minutes
+              </strong>
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="body1" color="text.secondary">
               Airline:
               {' '}
               <strong>{flight.airline}</strong>
@@ -80,9 +93,18 @@ export default function FlightInfo({ id } : { id: number }) {
               Carbon Emission:
               {' '}
               <strong>
-                {flight.carbonEmission}
+                {flight.carbonEmission.toLocaleString('es-ES')}
                 {' '}
                 kg CO2
+              </strong>
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="body1" color="text.secondary">
+              Airplane:
+              {' '}
+              <strong>
+                {flight.airplane}
               </strong>
             </Typography>
           </Grid>
@@ -100,10 +122,27 @@ export default function FlightInfo({ id } : { id: number }) {
           <Grid item xs={12}>
             <Typography variant="body1" color="text.secondary">
               Tickets Available:
+              {' '}
               <strong>
                 {flight.quantity}
               </strong>
             </Typography>
+          </Grid>
+          <Grid item xs={12} style={{ marginTop: '20px' }}>
+            <Typography variant="body1" color="text.secondary">
+              Select the number of Tickets to buy:
+            </Typography>
+            <select
+              value={ticketCount}
+              onChange={(e) => setTicketCount(Number(e.target.value))}
+              style={{ margin: '10px 0', padding: '10px 20px', border: '1px solid gray' }}
+            >
+              {[1, 2, 3, 4].map((number) => (
+                <option key={number} value={number}>
+                  {number}
+                </option>
+              ))}
+            </select>
           </Grid>
           <Grid item xs={12}>
             <Button variant="contained" sx={{ backgroundColor: '#4CAF50', color: '#fff' }}>

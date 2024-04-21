@@ -4,7 +4,7 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import NavBar from '@/components/NavBar';
 import FlightInfo from '@/components/FlightInfo';
 
-export default function FlightPage({ params }: { params: { flightId: string } }) {
+export default function FlightPage({ params }: { params: { flightId: number } }) {
   const { user, isLoading } = useUser();
 
   if (isLoading) return <div>Loading...</div>;
@@ -14,15 +14,10 @@ export default function FlightPage({ params }: { params: { flightId: string } })
       {user ? (
         <div className="flex w-full h-full flex-col items-center gap-8">
           <NavBar />
-          <h1 style={{ color: 'black' }}>
-            Flight ID:
-            {' '}
-            {params.flightId}
-          </h1>
-          <FlightInfo />
+          <FlightInfo id={params.flightId} />
         </div>
       ) : (
-        <div className="flex w-full h-full flex-col items-center mt-6 gap-8">
+        <div className="flex w-full h-full flex-col items-center gap-8">
           <NavBar />
         </div>
       )}

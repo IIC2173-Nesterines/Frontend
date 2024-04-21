@@ -17,7 +17,7 @@ export default function FlightPage({ params }: { params: { flightId: number } })
           <FlightInfo id={params.flightId} />
         </div>
       ) : (
-        <div className="flex w-full h-full flex-col items-center mt-6 gap-8">
+        <div className="flex w-full h-full flex-col items-center gap-8">
           <NavBar />
         </div>
       )}

@@ -8,6 +8,7 @@ import {
   Button,
   Card,
 } from '@mui/material';
+import formatDate from '@/utils';
 
 export default function FlightCard({ flight }: { flight: FlightType }) {
   return (
@@ -16,7 +17,7 @@ export default function FlightCard({ flight }: { flight: FlightType }) {
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           fecha:
           {' '}
-          {new Date(flight.departureDate).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })}
+          {formatDate(flight.departureDate)}
         </Typography>
         <Typography variant="h5" component="div">
           {flight.departureAirportId}

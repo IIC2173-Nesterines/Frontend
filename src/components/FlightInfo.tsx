@@ -4,6 +4,7 @@ import {
   Card, CardContent, Typography, Button, Grid,
 } from '@mui/material';
 import { FlightAPI } from '@/api/flight.api';
+import formatDate from '@/utils';
 
 export default function FlightInfo({ id } : { id: number }) {
   const [flight, setFlight] = useState({
@@ -57,14 +58,14 @@ export default function FlightInfo({ id } : { id: number }) {
             <Typography variant="body1" color="text.secondary">
               Departure Date-Time:
               {' '}
-              <strong>{flight.departureDate}</strong>
+              <strong>{formatDate(flight.departureDate)}</strong>
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <Typography variant="body1" color="text.secondary">
               Arrival Date-Time:
               {' '}
-              <strong>{flight.arrivalDate}</strong>
+              <strong>{formatDate(flight.arrivalDate)}</strong>
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -90,7 +91,7 @@ export default function FlightInfo({ id } : { id: number }) {
               Price:
               {' '}
               <strong>
-                {flight.price}
+                {flight.price.toLocaleString('es-ES')}
                 {' '}
                 {flight.currency}
               </strong>

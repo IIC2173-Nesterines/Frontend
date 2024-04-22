@@ -34,6 +34,13 @@ export interface TicketType {
   updatedAt: string,
 }
 
+export interface RequestType {
+  session_id: string;
+  datetime: string;
+  flight_id: number;
+  quantity: number;
+}
+
 export interface UserType {
   sessionId: string;
   email: string;

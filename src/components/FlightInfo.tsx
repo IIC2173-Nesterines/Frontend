@@ -5,9 +5,12 @@ import {
 } from '@mui/material';
 import { FlightAPI } from '@/api/flight.api';
 import formatDate from '@/utils';
+import { FlightType } from '@/types';
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 export default function FlightInfo({ id } : { id: number }) {
-  const [flight, setFlight] = useState({
+  const { user } = useUser();
+  const [flight, setFlight] = useState<FlightType>({
     airline: '',
     airlineLogo: '',
     airplane: '',
@@ -93,7 +96,7 @@ export default function FlightInfo({ id } : { id: number }) {
               Carbon Emission:
               {' '}
               <strong>
-                {flight.carbonEmission.toLocaleString('es-ES')}
+                {flight.carbonEmission.toLocaleString()}
                 {' '}
                 kg CO2
               </strong>
@@ -145,7 +148,13 @@ export default function FlightInfo({ id } : { id: number }) {
             </select>
           </Grid>
           <Grid item xs={12}>
-            <Button variant="contained" sx={{ backgroundColor: '#4CAF50', color: '#fff' }}>
+            <Button
+              variant="contained"
+              sx={{ backgroundColor: '#4CAF50', color: '#fff' }}
+              onClick={() => FlightAPI.bookFlight({
+                session_id: user?.sub || '', quantity: ticketCount, flight_id: id, datetime: new Date().toDateString(),
+              })}
+            >
               Book Flight
             </Button>
           </Grid>

@@ -4,7 +4,7 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import NavBar from '@/components/NavBar';
 import ProfileInfo from '@/components/ProfileInfo';
 
-const ProfilePage = () => {
+function ProfilePage() {
   const { user, isLoading } = useUser();
 
   if (isLoading) return <div>Loading...</div>;
@@ -21,6 +21,6 @@ const ProfilePage = () => {
       </div>
     </div>
   );
-};
+}
 
 export default ProfilePage;

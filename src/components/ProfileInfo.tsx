@@ -1,5 +1,7 @@
 import React from 'react';
-import { Card, CardContent, Typography, Grid, Button, Avatar } from '@mui/material';
+import {
+  Card, CardContent, Typography, Grid, Avatar,
+} from '@mui/material';
 import { useUser } from '@auth0/nextjs-auth0/client';
 
 export default function ProfileInfo() {
@@ -7,7 +9,10 @@ export default function ProfileInfo() {
 
   if (user) {
     return (
-      <Card sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: 2 }}>
+      <Card sx={{
+        display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: 2,
+      }}
+      >
         <CardContent>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -24,12 +29,13 @@ export default function ProfileInfo() {
             </Grid>
             <Grid item xs={12}>
               <Typography variant="body1" color="text.secondary">
-                Email: <strong>{user?.email}</strong>
+                Email:
+                {' '}
+                <strong>{user?.email}</strong>
               </Typography>
             </Grid>
             {/* Agrega más detalles del perfil del usuario aquí */}
-            <Grid item xs={12}>
-            </Grid>
+            <Grid item xs={12} />
           </Grid>
         </CardContent>
       </Card>

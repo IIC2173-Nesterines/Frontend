@@ -154,7 +154,7 @@ export default function FlightInfo({ id } : { id: number }) {
               onClick={() => {
                 if (flight.quantity >= ticketCount) {
                   FlightAPI.bookFlight({
-                    session_id: user?.sub || '', quantity: ticketCount, flight_id: parseInt(id, 10), datetime: new Date().toDateString(),
+                    session_id: user?.sub || '', quantity: ticketCount, flight_id: id, datetime: new Date().toDateString(),
                   });
                 }
               }}

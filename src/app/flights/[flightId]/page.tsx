@@ -3,6 +3,13 @@
 import { useUser } from '@auth0/nextjs-auth0/client';
 import NavBar from '@/components/NavBar';
 import FlightInfo from '@/components/FlightInfo';
+import { getMyIP } from '@/utils';
+
+getMyIP().then((locationData) => {
+  console.log('Datos de ubicación:', locationData);
+}).catch((error) => {
+  console.error('Error al obtener los datos de ubicación:', error);
+});
 
 export default function FlightPage({ params }: { params: { flightId: number } }) {
   const { user, isLoading } = useUser();

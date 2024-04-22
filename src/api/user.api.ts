@@ -4,7 +4,6 @@ import { axiosInstance } from './base.api';
 
 const userCreate = '/users';
 const userCheck = '/users/check/:userId';
-const userProfile = '/users/:userId/profile';
 
 // eslint-disable-next-line import/prefer-default-export
 export const UserAPI = {

@@ -31,3 +31,6 @@ NEXT_PUBLIC_API_BASE_URL= 'http://localhost:3001'
 ```
 
 Finalmente, se debe ejecutar el comando `npm run dev` para correr el proyecto en el puerto 3000. Para que el frontend se pueda conectar el backend, se debe abrir una nueva consola en el directorio de la API en el repositorio del backend y seguir las instrucciones de la documentación
+
+## Pipeline CI
+Se implementó un *pipeline* de CI muy simple para esta entrega, el cual fue desarrollado con Github Actions y ejecuta un chequeo de estilo de código con ESLint. El archivo de configuración del *pipeline* se encuentra en `.github/workflows/main.yml`. El *pipeline* se ejecuta cada vez que se hace un *push* a la rama `main` del repositorio.

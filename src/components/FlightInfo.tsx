@@ -30,6 +30,23 @@ export default function FlightInfo({ id } : { id: number }) {
 
   const [ticketCount, setTicketCount] = useState(1);
 
+  const bookFlight = async () => {
+    try {
+      const booked = await FlightAPI.bookFlight({
+        session_id: user?.sub || '',
+        flight_id: id,
+        quantity: ticketCount,
+        datetime: new Date().toDateString(),
+      });
+      console.log(booked);
+      if (booked.status == 200) {
+        alert('Flight booked successfully!');
+      }
+    } catch (error) {
+      console.error('Error booking flight:', error);
+    }
+  }
+
   const fetchFlight = async () => {
     try {
       const { data } = await FlightAPI.getFlight(id);
@@ -151,14 +168,7 @@ export default function FlightInfo({ id } : { id: number }) {
             <Button
               variant="contained"
               sx={{ backgroundColor: '#4CAF50', color: '#fff' }}
-              href="/profile"
-              onClick={() => {
-                if (flight.quantity >= ticketCount) {
-                  FlightAPI.bookFlight({
-                    session_id: user?.sub || '', quantity: ticketCount, flight_id: id, datetime: new Date().toDateString(),
-                  });
-                }
-              }}
+              onClick={bookFlight}
             >
               Book Flight
             </Button>

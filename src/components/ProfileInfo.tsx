@@ -9,30 +9,57 @@ import TicketCard from './TicketCard';
 
 export default function ProfileInfo() {
   const { user } = useAuth0();
-  const [tickets, setTicket] = useState<TicketType[]>([]);
+  const [tickets, setTicket] = useState<TicketType[]>([
+    {
+      createdAt: '',
+      userId: 0,
+      updatedAt: '',
+      quantity: 0,
+      id: 0,
+      flightId: 0,
+      flight: {
+        airline: '',
+        airlineLogo: '',
+        airplane: '',
+        arrivalAirportId: '',
+        arrivalDate: '',
+        carbonEmission: '',
+        createdAt: '',
+        currency: '',
+        departureAirportId: '',
+        departureDate: '',
+        duration: 0,
+        id: 0,
+        price: 0,
+        quantity: 0,
+        updatedAt: '',
+      },
+    },
+  ]);
   const [isEffectExecuted, setIsEffectExecuted] = useState(false);
 
   
   useEffect(() => {
     if (user && !isEffectExecuted) {
-      const fetchTicket = async () => {
+      const fetchTicket = async (): Promise<void> => {
         try {
-          const ticketToFetch = await FlightAPI.getAllTickets(user?.sub || '');
-          ticketToFetch.data.forEach(async (ticketToFetch : TicketType) => {
+          const ticketToFetch = await FlightAPI.getAllTickets(user.sub || '');
+          const fetchedTickets = await Promise.all(ticketToFetch.data.map(async (ticketToFetch: TicketType) => {
             const flight = await FlightAPI.getFlight(ticketToFetch.flightId);
             ticketToFetch.flight = flight.data;
-          });
-          return ticketToFetch.data;
+            return ticketToFetch;
+          }));
+          setTicket(fetchedTickets);
+          setIsEffectExecuted(true);
         } catch (error) {
           console.error('Error fetching flight:', error);
         }
       };
       
-      const fetchedTickets = fetchTicket();
-      setTicket(fetchedTickets);
-      setIsEffectExecuted(true);
+      fetchTicket();
     }
-  }, [user]);
+  }, [user, isEffectExecuted]);
+  
 
   if (user) {
     return (

@@ -9,7 +9,6 @@ import {
 import formatDate from '@/utils';
 
 export default function TicketCard({ ticket }: { ticket: TicketType }) {
-  console.log(ticket.flight.departureDate);
   return (
     <Card className="w-64" variant="outlined">
       <CardContent>

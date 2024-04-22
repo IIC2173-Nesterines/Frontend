@@ -11,7 +11,7 @@ getMyIP().then((locationData) => {
   console.error('Error al obtener los datos de ubicación:', error);
 });
 
-export default function FlightPage({ params }: { params: { flightId: number } }) {
+export default function FlightPage({ params }: { params: { flightId: string } }) {
   const { user, isLoading } = useUser();
 
   if (isLoading) return <div>Loading...</div>;
@@ -21,7 +21,7 @@ export default function FlightPage({ params }: { params: { flightId: number } })
       {user ? (
         <div className="flex w-full h-full flex-col items-center gap-8">
           <NavBar />
-          <FlightInfo id={params.flightId} />
+          <FlightInfo id={parseInt(params.flightId, 10)} />
         </div>
       ) : (
         <div className="flex w-full h-full flex-col items-center gap-8">

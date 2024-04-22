@@ -5,25 +5,10 @@ import {
 } from '@mui/material';
 import FlightCard from '@/components/FlightCard';
 import { FlightAPI } from '@/api/flight.api';
+import { FlightType } from '@/types';
 
 export default function FlightsDashboard() {
-  const [flights, setFlight] = useState([{
-    airline: '',
-    airlineLogo: '',
-    airplane: '',
-    arrivalAirportId: '',
-    arrivalDate: '',
-    carbonEmission: '',
-    createdAt: '',
-    currency: '',
-    departureAirportId: '',
-    departureDate: '',
-    duration: 0,
-    id: 0,
-    price: 0,
-    quantity: 0,
-    updatedAt: '',
-  }]);
+  const [flights, setFlight] = useState<FlightType[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 

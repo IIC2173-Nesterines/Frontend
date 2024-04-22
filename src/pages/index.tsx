@@ -8,11 +8,11 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { UserAPI } from '../api/user.api';
-import { FlightAPI } from '@/api/flight.api';
 
 export default function Home() {
   const { user, isLoading } = useAuth0();
   const [isEffectExecuted, setIsEffectExecuted] = useState(false);
+  console.log("AAA", user);
 
   useEffect(() => {
     if (user && !isEffectExecuted) {
@@ -25,7 +25,7 @@ export default function Home() {
 
           // Check if user exists in the system
           const existingUser = await UserAPI.checkUser(userId);
-          console.log(existingUser);
+          console.log(existingUser.data);
 
           //If user does not exist, create a new user
           if (!existingUser.data) {

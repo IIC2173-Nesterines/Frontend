@@ -1,12 +1,12 @@
 'use client';
 
 import { useUser } from '@auth0/nextjs-auth0/client';
+import NavBar from '@/components/NavBar';
+import FlightsDashboard from '@/components/FlightsDashboard';
 import {
   Typography, Box,
 } from '@mui/material';
-import FlightsDashboard from '@/components/FlightsDashboard';
 import { useEffect, useState } from 'react';
-import NavBar from '@/components/NavBar';
 import { UserAPI } from '../api/user.api';
 
 export default function Home() {
@@ -16,6 +16,7 @@ export default function Home() {
   useEffect(() => {
     if (user && !isEffectExecuted) {
       const registerUserToDB = async () => {
+        setIsEffectExecuted(true);
         if (user) {
           const userId = user?.sub || '';
           const email = user?.email || '';
@@ -28,15 +29,13 @@ export default function Home() {
           if (!existingUser.data) {
             await UserAPI.login({ sessionId: userId, email, username });
           }
-
-          setIsEffectExecuted(true);
         }
       };
       registerUserToDB();
     }
   }, [isEffectExecuted, user]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Box className="flex w-full h-full items-center justify-center">Loading...</Box>;
 
   return (
     <main className="flex h-screen w-full flex-col bg-white justify-center">

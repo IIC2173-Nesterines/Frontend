@@ -6,7 +6,7 @@ export const oauthAxiosInstance = axios.create();
 const getToken = async () => {
   const options = {
     method: 'POST',
-    url: 'https://dev-6scoyihmj3sd05vg.us.auth0.com/oauth/token',
+    url: `${process.env.NEXT_PUBLIC_AUTH0_ISSUER_BASE_URL}/oauth/token` || '',
     headers: { 'content-type': 'application/x-www-form-urlencoded' },
     data: new URLSearchParams({
       grant_type: 'client_credentials',

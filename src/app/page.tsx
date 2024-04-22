@@ -16,6 +16,7 @@ export default function Home() {
   useEffect(() => {
     if (user && !isEffectExecuted) {
       const registerUserToDB = async () => {
+        setIsEffectExecuted(true);
         if (user) {
           const userId = user?.sub || '';
           const email = user?.email || '';
@@ -28,8 +29,6 @@ export default function Home() {
           if (!existingUser.data) {
             await UserAPI.login({ sessionId: userId, email, username });
           }
-
-          setIsEffectExecuted(true);
         }
       };
       registerUserToDB();

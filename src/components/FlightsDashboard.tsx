@@ -5,16 +5,12 @@ import {
 } from '@mui/material';
 import FlightCard from '@/components/FlightCard';
 import { FlightAPI } from '@/api/flight.api';
+import { FlightType } from '@/types';
 
 export default function FlightsDashboard() {
-  const [flights, setFlight] = useState([{
-    id: 0,
-    from: '',
-    to: '',
-    date: '',
-    airline: '',
-  }]);
+  const [flights, setFlight] = useState<FlightType[]>([]);
   const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
@@ -22,7 +18,9 @@ export default function FlightsDashboard() {
 
   const fetchFlights = async () => {
     try {
-      const { data } = await FlightAPI.getFlights();
+      const allFlights = await FlightAPI.getAllFlights();
+      setTotalPages(Math.ceil(allFlights.data.length / 3));
+      const { data } = await FlightAPI.getFlights(3, page);
       setFlight(data);
     } catch (error) {
       console.error('Error fetching flights:', error);
@@ -45,7 +43,7 @@ export default function FlightsDashboard() {
         }
       </Box>
       <Box className="flex flex-col items-center mb-8">
-        <Pagination count={10} page={page} onChange={handleChange} variant="outlined" />
+        <Pagination count={totalPages} page={page} onChange={handleChange} variant="outlined" />
       </Box>
     </Box>
   );

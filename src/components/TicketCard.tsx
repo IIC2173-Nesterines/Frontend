@@ -1,39 +1,39 @@
 import React from 'react';
-import { FlightType } from '@/types';
+import { TicketType } from '@/types';
 
 import {
   Typography,
   CardContent,
-  CardActions,
-  Button,
   Card,
 } from '@mui/material';
 import formatDate from '@/utils';
 
-export default function FlightCard({ flight }: { flight: FlightType }) {
+export default function TicketCard({ ticket }: { ticket: TicketType }) {
   return (
     <Card className="w-64" variant="outlined">
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           fecha:
           {' '}
-          {formatDate(flight.departureDate)}
+          {formatDate(ticket.departureDate)}
         </Typography>
         <Typography variant="h5" component="div">
-          {flight.departureAirportId}
+          {ticket.departureAirportId}
           {' '}
           to
           {' '}
-          {flight.arrivalAirportId}
+          {ticket.arrivalAirportId}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
           Airline:
           {' '}
-          {flight.airline}
+          {ticket.airline}
         </Typography>
-        <CardActions>
-          <Button size="small" href={`/flights/${flight.id}`}> Ver Detalles</Button>
-        </CardActions>
+        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+          Cantidad Comprada:
+          {' '}
+          {ticket.quantity}
+        </Typography>
       </CardContent>
     </Card>
   );

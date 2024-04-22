@@ -1,12 +1,13 @@
 // eslint-disable-next-line import/no-named-as-default
 import { UserType } from '@/types';
 import { axiosInstance } from './base.api';
+import axios from 'axios';
 
-const userCreate = '/users';
-const userCheck = '/users/check/:userId';
+const userCreate = `${process.env.NEXT_PUBLIC_API_BASE_URL}/users`;
+const userCheck = `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/check`;
 
 // eslint-disable-next-line import/prefer-default-export
 export const UserAPI = {
   login: (data: UserType) => axiosInstance.post(userCreate, data),
-  checkUser: (userId: string) => axiosInstance.get(userCheck.replace(':userId', userId)),
+  checkUser: (userId: string) => axiosInstance.get(`${userCheck}/${userId}`),
 };

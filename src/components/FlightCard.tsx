@@ -32,7 +32,7 @@ export default function FlightCard({ flight }: { flight: FlightType }) {
           {flight.airline}
         </Typography>
         <CardActions>
-          <Button size="small" href={`/flights/${flight.id}`}> Ver Detalles</Button>
+          <Button size="small" href={`/flights?id=${flight.id}`}> Ver Detalles</Button>
         </CardActions>
       </CardContent>
     </Card>

@@ -2,27 +2,37 @@ import React, { useState, useEffect } from 'react';
 import {
   Typography, Box,
 } from '@mui/material';
-import { useUser } from '@auth0/nextjs-auth0/client';
+import { useAuth0 } from '@auth0/auth0-react';
 import { FlightAPI } from '@/api/flight.api';
 import { TicketType } from '@/types';
 import TicketCard from './TicketCard';
 
 export default function ProfileInfo() {
-  const { user } = useUser();
+  const { user } = useAuth0();
   const [tickets, setTicket] = useState<TicketType[]>([]);
+  const [isEffectExecuted, setIsEffectExecuted] = useState(false);
 
-  const fetchTicket = async () => {
-    try {
-      const { data } = await FlightAPI.getAllTickets(user?.sub || '');
-      setTicket(data);
-    } catch (error) {
-      console.error('Error fetching flight:', error);
-    }
-  };
-
+  
   useEffect(() => {
-    fetchTicket();
-  }, []);
+    if (user && !isEffectExecuted) {
+      const fetchTicket = async () => {
+        try {
+          const ticketToFetch = await FlightAPI.getAllTickets(user?.sub || '');
+          ticketToFetch.data.forEach(async (ticketToFetch : TicketType) => {
+            const flight = await FlightAPI.getFlight(ticketToFetch.flightId);
+            ticketToFetch.flight = flight.data;
+          });
+          return ticketToFetch.data;
+        } catch (error) {
+          console.error('Error fetching flight:', error);
+        }
+      };
+      
+      const fetchedTickets = fetchTicket();
+      setTicket(fetchedTickets);
+      setIsEffectExecuted(true);
+    }
+  }, [user]);
 
   if (user) {
     return (

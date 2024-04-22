@@ -1,11 +1,11 @@
 'use client';
 
-import { useUser } from '@auth0/nextjs-auth0/client';
 import NavBar from '@/components/NavBar';
-import FlightsDashboard from '@/components/FlightsDashboard';
+import ProfileInfo from '@/components/ProfileInfo';
+import { useAuth0 } from '@auth0/auth0-react';
 
 export default function FlightsPage() {
-  const { user, isLoading } = useUser();
+  const { user, isLoading } = useAuth0();
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -14,7 +14,7 @@ export default function FlightsPage() {
       {user ? (
         <div className="flex w-full h-full flex-col items-center gap-8 justify-center">
           <NavBar />
-          <FlightsDashboard />
+          <ProfileInfo />
         </div>
       ) : (
         <div className="flex w-full h-full flex-col items-center gap-8">

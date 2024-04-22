@@ -9,25 +9,26 @@ import {
 import formatDate from '@/utils';
 
 export default function TicketCard({ ticket }: { ticket: TicketType }) {
+  console.log(ticket.flight.departureDate);
   return (
     <Card className="w-64" variant="outlined">
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           fecha:
           {' '}
-          {formatDate(ticket.departureDate)}
+          {formatDate(ticket.flight.departureDate)}
         </Typography>
         <Typography variant="h5" component="div">
-          {ticket.departureAirportId}
+          {ticket.flight.departureAirportId}
           {' '}
           to
           {' '}
-          {ticket.arrivalAirportId}
+          {ticket.flight.arrivalAirportId}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
           Airline:
           {' '}
-          {ticket.airline}
+          {ticket.flight.airline}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
           Cantidad Comprada:

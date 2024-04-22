@@ -6,10 +6,10 @@ import {
 import { FlightAPI } from '@/api/flight.api';
 import formatDate from '@/utils';
 import { FlightType } from '@/types';
-import { useUser } from '@auth0/nextjs-auth0/client';
+import { useAuth0 } from '@auth0/auth0-react';
 
 export default function FlightInfo({ id } : { id: number }) {
-  const { user } = useUser();
+  const { user } = useAuth0();
   const [flight, setFlight] = useState<FlightType>({
     airline: '',
     airlineLogo: '',
@@ -151,6 +151,7 @@ export default function FlightInfo({ id } : { id: number }) {
             <Button
               variant="contained"
               sx={{ backgroundColor: '#4CAF50', color: '#fff' }}
+              href="/profile"
               onClick={() => {
                 if (flight.quantity >= ticketCount) {
                   FlightAPI.bookFlight({

@@ -36,9 +36,9 @@ export interface TicketType {
 
 export interface RequestType {
   session_id: string;
-  datetime: string;
-  flight_id: number;
   quantity: number;
+  flight_id: number;
+  datetime: string;
 }
 
 export interface UserType {

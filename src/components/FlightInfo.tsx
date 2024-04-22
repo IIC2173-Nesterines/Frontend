@@ -151,9 +151,13 @@ export default function FlightInfo({ id } : { id: number }) {
             <Button
               variant="contained"
               sx={{ backgroundColor: '#4CAF50', color: '#fff' }}
-              onClick={() => FlightAPI.bookFlight({
-                session_id: user?.sub || '', quantity: ticketCount, flight_id: id, datetime: new Date().toDateString(),
-              })}
+              onClick={() => {
+                if (flight.quantity >= ticketCount) {
+                  FlightAPI.bookFlight({
+                    session_id: user?.sub || '', quantity: ticketCount, flight_id: parseInt(id, 10), datetime: new Date().toDateString(),
+                  });
+                }
+              }}
             >
               Book Flight
             </Button>

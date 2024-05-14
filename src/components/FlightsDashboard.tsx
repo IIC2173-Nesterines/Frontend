@@ -20,8 +20,8 @@ export default function FlightsDashboard() {
     try {
       const allFlights = await FlightAPI.getAllFlights();
       setTotalPages(Math.ceil(allFlights.data.length / 3));
-      const flights = await FlightAPI.getFlights(3, page);
-      setFlight(flights.data);
+      const getFlights = await FlightAPI.getFlights(3, page);
+      setFlight(getFlights.data);
     } catch (error) {
       console.error('Error fetching flights:', error);
     }

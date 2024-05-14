@@ -38,32 +38,32 @@ export default function ProfileInfo() {
   ]);
   const [isEffectExecuted, setIsEffectExecuted] = useState(false);
 
-  
   useEffect(() => {
     if (user && !isEffectExecuted) {
       const fetchTicket = async (): Promise<void> => {
         try {
           const ticketToFetch = await FlightAPI.getAllTickets(user.sub || '');
-          const fetchedTickets = await Promise.all(ticketToFetch.data.map(async (ticketToFetch: TicketType) => {
-            const flight = await FlightAPI.getFlight(ticketToFetch.flightId);
-            ticketToFetch.flight = flight.data;
-            return ticketToFetch;
-          }));
+          const fetchedTickets = await Promise.all(
+            ticketToFetch.data.map(async (ticketItem: TicketType) => {
+              const flight = await FlightAPI.getFlight(ticketItem.flightId);
+              const updatedTicket = { ...ticketItem, flight: flight.data };
+              return updatedTicket;
+            }),
+          );
           setTicket(fetchedTickets);
           setIsEffectExecuted(true);
         } catch (error) {
           console.error('Error fetching flight:', error);
         }
       };
-      
+
       fetchTicket();
     }
   }, [user, isEffectExecuted]);
-  
 
   if (user) {
     return (
-      <Box className="h-full w-full flex flex-col mt-16">
+      <Box className="h-full w-full flex flex-col">
         <Box className="flex items-center gap-4 flex-col">
           <Typography variant="h4" component="div" sx={{ marginLeft: 2 }} className="text-black">
             {user?.nickname || ''}

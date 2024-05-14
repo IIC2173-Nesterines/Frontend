@@ -1,15 +1,17 @@
 import {
-  AppBar, Button, Toolbar, Typography,
+  AppBar, Button, Toolbar, Typography, Divider,
 } from '@mui/material'; // Import the AppBar component from the Material UI library
 import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';
 
 export default function NavBar() {
-  const { isAuthenticated, user, loginWithRedirect, logout } = useAuth0();
+  const {
+    isAuthenticated, user, loginWithRedirect, logout,
+  } = useAuth0();
   if (isAuthenticated) {
     return (
-      <AppBar position="static">
+      <AppBar position="sticky">
         <Toolbar>
           <Typography variant="h5" sx={{ flexGrow: 1 }}>
             <Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}>Nesterines Flights</Link>
@@ -20,12 +22,20 @@ export default function NavBar() {
           <Link href="/profile" style={{ textDecoration: 'none', color: 'inherit', marginRight: 10 }}>
             My Profile
           </Link>
-          <Link href="/flights" style={{ textDecoration: 'none', color: 'inherit', marginRight: 3 }}>
+          <Divider orientation="vertical" flexItem style={{ marginRight: 10 }} variant="middle" />
+          <Link href="/flights" style={{ textDecoration: 'none', color: 'inherit', marginRight: 10 }}>
             Check Flights
           </Link>
-          <Button variant="contained" onClick={() =>
-              logout({ logoutParams: { returnTo: window.location.origin } })
-            } sx={{ backgroundColor: '#fff', color: '#222' }}>
+          <Divider orientation="vertical" flexItem style={{ marginRight: 10 }} variant="middle" />
+          <Link href="/recommendations" style={{ textDecoration: 'none', color: 'inherit', marginRight: 10 }}>
+            Check Recommendations
+          </Link>
+          <Divider orientation="vertical" flexItem style={{ marginRight: 10 }} variant="middle" />
+          <Button
+            variant="contained"
+            onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
+            sx={{ backgroundColor: '#fff', color: '#222' }}
+          >
             Sign out
           </Button>
         </Toolbar>
@@ -33,7 +43,7 @@ export default function NavBar() {
     );
   }
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <Toolbar>
         <Typography variant="h5" sx={{ flexGrow: 1 }}>
           <Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}>Nesterines Flights</Link>

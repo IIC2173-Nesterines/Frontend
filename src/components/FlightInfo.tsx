@@ -39,13 +39,13 @@ export default function FlightInfo({ id } : { id: number }) {
         datetime: new Date().toDateString(),
       });
       console.log(booked);
-      if (booked.status == 200) {
+      if (booked.status === 200) {
         alert('Flight booked successfully!');
       }
     } catch (error) {
       console.error('Error booking flight:', error);
     }
-  }
+  };
 
   const fetchFlight = async () => {
     try {
@@ -61,14 +61,11 @@ export default function FlightInfo({ id } : { id: number }) {
   }, []);
 
   return (
-    <Card sx={{
-      display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: 2,
-    }}
-    >
-      <CardContent>
-        <Grid container spacing={2}>
+    <Card className="w-1/2 h-auto flex flex-col">
+      <CardContent className="mx-8">
+        <Grid container spacing={1}>
           <Grid item xs={12}>
-            <Typography variant="h4" component="div">
+            <Typography variant="h5" component="div">
               {flight.departureAirportId}
               {' '}
               to
@@ -77,21 +74,21 @@ export default function FlightInfo({ id } : { id: number }) {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body2" color="text.secondary">
               Departure Date-Time:
               {' '}
               <strong>{formatDate(flight.departureDate)}</strong>
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body2" color="text.secondary">
               Arrival Date-Time:
               {' '}
               <strong>{formatDate(flight.arrivalDate)}</strong>
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body2" color="text.secondary">
               Duration:
               {' '}
               <strong>
@@ -102,14 +99,14 @@ export default function FlightInfo({ id } : { id: number }) {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body2" color="text.secondary">
               Airline:
               {' '}
               <strong>{flight.airline}</strong>
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body2" color="text.secondary">
               Carbon Emission:
               {' '}
               <strong>
@@ -120,7 +117,7 @@ export default function FlightInfo({ id } : { id: number }) {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body2" color="text.secondary">
               Airplane:
               {' '}
               <strong>
@@ -129,7 +126,7 @@ export default function FlightInfo({ id } : { id: number }) {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body2" color="text.secondary">
               Price:
               {' '}
               <strong>
@@ -140,7 +137,7 @@ export default function FlightInfo({ id } : { id: number }) {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body2" color="text.secondary">
               Tickets Available:
               {' '}
               <strong>
@@ -148,8 +145,8 @@ export default function FlightInfo({ id } : { id: number }) {
               </strong>
             </Typography>
           </Grid>
-          <Grid item xs={12} style={{ marginTop: '20px' }}>
-            <Typography variant="body1" color="text.secondary">
+          <Grid item xs={12} style={{ marginTop: '10px' }} className="mt-4">
+            <Typography variant="body2" color="text.secondary">
               Select the number of Tickets to buy:
             </Typography>
             <select

@@ -12,7 +12,7 @@ export default function ProfilePage() {
   return (
     <main className="flex h-screen w-full flex-col bg-white justify-center">
       {user ? (
-        <div className="flex w-full h-full flex-col items-center gap-8 justify-center">
+        <div className="flex w-full h-full flex-col items-center gap-8">
           <NavBar />
           <ProfileInfo />
         </div>

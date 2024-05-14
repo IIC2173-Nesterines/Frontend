@@ -38,3 +38,8 @@ export interface UserType {
   email: string;
   username: string;
 }
+
+export interface RecommendationType {
+  id: number;
+  flight: FlightType;
+}

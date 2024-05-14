@@ -1,7 +1,6 @@
 // eslint-disable-next-line import/no-named-as-default
 import { UserType } from '@/types';
 import { axiosInstance } from './base.api';
-import axios from 'axios';
 
 const userCreate = `${process.env.NEXT_PUBLIC_API_BASE_URL}/users`;
 const userCheck = `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/check`;

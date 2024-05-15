@@ -31,3 +31,34 @@ export async function getMyIP(): Promise<LocationInfo> {
     };
   }
 }
+
+export interface AddressType {
+  place_id: number;
+  licence: string;
+  osm_type: string;
+  osm_id: number;
+  boundingbox: [string, string, string, string];
+  lat: string;
+  lon: string;
+  display_name: string;
+  class: string;
+  type: string;
+  importance: number;
+}
+
+export async function getCoordinatesFromLocation(location: string): Promise<LocationInfo> {
+  try {
+    const response = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=6644b7d57947c208485978dacc7bcd6`);
+    const locationInfo = response.data.find((address : AddressType) => address.display_name.includes('Airport')) || response.data[0];
+    return {
+      lat: locationInfo.lat,
+      lon: locationInfo.lon,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      lat: '',
+      lon: '',
+    };
+  }
+}

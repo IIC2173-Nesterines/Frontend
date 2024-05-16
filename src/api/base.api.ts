@@ -3,6 +3,7 @@ import axios from 'axios';
 export const oauthAxiosInstance = axios.create();
 
 // Función para obtener el token de acceso
+// eslint-disable-next-line no-unused-vars
 const getToken = async () => {
   const options = {
     method: 'POST',
@@ -25,6 +26,7 @@ export const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use(async (config) => {
   // eslint-disable-next-line no-param-reassign
   // config.headers.Authorization = `Bearer ${await getToken()}`;
+  // eslint-disable-next-line no-param-reassign
   config.headers['Content-Type'] = 'application/json';
   return config;
 }, (error) => Promise.reject(error));

@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlightType } from '@/types';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
 import {
   Typography,

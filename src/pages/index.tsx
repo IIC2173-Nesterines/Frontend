@@ -12,7 +12,6 @@ import { UserAPI } from '../api/user.api';
 export default function Home() {
   const { user, isLoading } = useAuth0();
   const [isEffectExecuted, setIsEffectExecuted] = useState(false);
-  console.log("AAA", user);
 
   useEffect(() => {
     if (user && !isEffectExecuted) {
@@ -27,7 +26,7 @@ export default function Home() {
           const existingUser = await UserAPI.checkUser(userId);
           console.log(existingUser.data);
 
-          //If user does not exist, create a new user
+          // If user does not exist, create a new user
           if (!existingUser.data) {
             await UserAPI.login({ sessionId: userId, email, username });
           }

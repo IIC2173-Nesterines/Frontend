@@ -38,28 +38,28 @@ export default function ProfileInfo() {
   ]);
   const [isEffectExecuted, setIsEffectExecuted] = useState(false);
 
-  
   useEffect(() => {
     if (user && !isEffectExecuted) {
       const fetchTicket = async (): Promise<void> => {
         try {
-          const ticketToFetch = await FlightAPI.getAllTickets(user.sub || '');
-          const fetchedTickets = await Promise.all(ticketToFetch.data.map(async (ticketToFetch: TicketType) => {
-            const flight = await FlightAPI.getFlight(ticketToFetch.flightId);
-            ticketToFetch.flight = flight.data;
-            return ticketToFetch;
-          }));
+          const ticketsToFetch = await FlightAPI.getAllTickets(user.sub || '');
+          const fetchedTickets = await Promise.all(
+            ticketsToFetch.data.map(async (ticketItem: TicketType) => {
+              const flight = await FlightAPI.getFlight(ticketItem.flightId);
+              const updatedTicket = { ...ticketItem, flight: flight.data };
+              return updatedTicket;
+            }),
+          );
           setTicket(fetchedTickets);
           setIsEffectExecuted(true);
         } catch (error) {
           console.error('Error fetching flight:', error);
         }
       };
-      
+
       fetchTicket();
     }
   }, [user, isEffectExecuted]);
-  
 
   if (user) {
     return (

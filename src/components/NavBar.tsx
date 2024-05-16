@@ -6,7 +6,9 @@ import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';
 
 export default function NavBar() {
-  const { isAuthenticated, user, loginWithRedirect, logout } = useAuth0();
+  const {
+    isAuthenticated, user, loginWithRedirect, logout,
+  } = useAuth0();
   if (isAuthenticated) {
     return (
       <AppBar position="static">
@@ -23,9 +25,11 @@ export default function NavBar() {
           <Link href="/flights" style={{ textDecoration: 'none', color: 'inherit', marginRight: 3 }}>
             Check Flights
           </Link>
-          <Button variant="contained" onClick={() =>
-              logout({ logoutParams: { returnTo: window.location.origin } })
-            } sx={{ backgroundColor: '#fff', color: '#222' }}>
+          <Button
+            variant="contained"
+            onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
+            sx={{ backgroundColor: '#fff', color: '#222' }}
+          >
             Sign out
           </Button>
         </Toolbar>

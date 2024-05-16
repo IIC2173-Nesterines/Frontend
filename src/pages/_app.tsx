@@ -3,6 +3,7 @@ import React from 'react';
 import App from 'next/app';
 import Router from 'next/router';
 import { Auth0Provider } from '@auth0/auth0-react';
+import '../styles/globals.css';
 
 const onRedirectCallback = (appState: any) => {
   // Use Next.js's Router.replace method to replace the url

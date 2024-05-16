@@ -31,10 +31,18 @@ export interface RequestType {
   quantity: number;
   flight_id: number;
   datetime: string;
+  deposit_token: string;
 }
 
 export interface UserType {
   sessionId: string;
   email: string;
   username: string;
+}
+
+export interface createTransactionType {
+  buy_order: string;
+  session_id: string;
+  amount: number;
+  return_url: string;
 }

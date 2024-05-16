@@ -4,6 +4,7 @@ import {
   Card, CardContent, Typography, Button, Grid,
 } from '@mui/material';
 import { FlightAPI } from '@/api/flight.api';
+import { TransbankAPI } from '@/api/transbank.api';
 import formatDate from '@/utils';
 import { FlightType } from '@/types';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -32,20 +33,37 @@ export default function FlightInfo({ id } : { id: number }) {
 
   const bookFlight = async () => {
     try {
+      const startTransaction = await TransbankAPI.createTransaction({
+        buy_order: '1',
+        session_id: user?.sub || '',
+        amount: flight.price * ticketCount,
+        return_url: `${process.env.NEXT_PUBLIC_BASE_URL}/transbank`,
+      });
       const booked = await FlightAPI.bookFlight({
         session_id: user?.sub || '',
         flight_id: id,
         quantity: ticketCount,
         datetime: new Date().toDateString(),
+        deposit_token: startTransaction.data.token,
       });
-      console.log(booked);
-      if (booked.status == 200) {
-        alert('Flight booked successfully!');
+      if (booked.status === 201) {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = startTransaction.data.url;
+
+        const tokenField = document.createElement('input');
+        tokenField.type = 'hidden';
+        tokenField.name = 'token_ws';
+        tokenField.value = startTransaction.data.token;
+
+        form.appendChild(tokenField);
+        document.body.appendChild(form);
+        form.submit();
       }
     } catch (error) {
       console.error('Error booking flight:', error);
     }
-  }
+  };
 
   const fetchFlight = async () => {
     try {

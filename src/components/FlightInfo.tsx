@@ -4,7 +4,7 @@ import {
   Card, CardContent, Typography, Button, Grid,
 } from '@mui/material';
 import { FlightAPI } from '@/api/flight.api';
-import formatDate from '@/utils';
+import formatDate, { getCoordinatesFromLocation, getMyIP } from '@/utils';
 import { FlightType } from '@/types';
 import { useAuth0 } from '@auth0/auth0-react';
 
@@ -30,6 +30,25 @@ export default function FlightInfo({ id } : { id: number }) {
 
   const [ticketCount, setTicketCount] = useState(1);
 
+  const generateRecommendations = async () => {
+    try {
+      const upcomingFlights = await FlightAPI.getUpcomingFlights({
+        purchaseDate: new Date().toISOString(),
+        destinationAirportId: flight.arrivalAirportId,
+      });
+      const flightsCoordinates = upcomingFlights.data.map((upcomingFlight: FlightType) => (
+        getCoordinatesFromLocation(upcomingFlight.departureAirportId)
+      ));
+      const getUserIp = await getMyIP();
+      await FlightAPI.generateRecommendations({
+        flights: flightsCoordinates,
+        ip_coord: getUserIp,
+      }, user?.sub || '');
+    } catch (error) {
+      console.error('Error fetching recommendations:', error);
+    }
+  };
+
   const bookFlight = async () => {
     try {
       const booked = await FlightAPI.bookFlight({
@@ -38,8 +57,8 @@ export default function FlightInfo({ id } : { id: number }) {
         quantity: ticketCount,
         datetime: new Date().toDateString(),
       });
-      console.log(booked);
-      if (booked.status === 200) {
+      if (booked.status === 201) {
+        generateRecommendations();
         alert('Flight booked successfully!');
       }
     } catch (error) {

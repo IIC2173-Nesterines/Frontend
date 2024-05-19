@@ -4,6 +4,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';
+import { FlightAPI } from '@/api/flight.api';
 
 export default function NavBar() {
   // eslint-disable-next-line no-unused-vars
@@ -15,8 +16,8 @@ export default function NavBar() {
   useEffect(() => {
     const fetchRecommendationsServiceState = async () => {
       try {
-        // const recommendationsServiceState = await FlightAPI.getRecommendationsServiceState();
-        // setRecommendationsServiceState(recommendationsServiceState.data);
+        const recommendationsServiceState = await FlightAPI.getRecommendationsStatus();
+        setRecommendationsServiceState(recommendationsServiceState.data);
         console.log('Recommendations service state fetched');
       } catch (error) {
         console.error('Error fetching recommendations service state:', error);

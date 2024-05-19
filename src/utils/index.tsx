@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Coordinates } from '@/types';
 
 // convert date format to YY MM DD HH:SS
 const formatDate = (dateString: string): string => {
@@ -8,17 +9,11 @@ const formatDate = (dateString: string): string => {
 
 export default formatDate;
 
-export interface LocationInfo {
-  lat: string;
-  lon: string;
-}
-
-export async function getMyIP(): Promise<LocationInfo> {
+export async function getMyIP(): Promise<Coordinates> {
   try {
     // const response = await axios.get('https://api.ipify.org?format=json');
     const response = await axios.get('http://ip-api.com/json');
-    console.log(`Tu IP es: ${response.data.lat} ${response.data.lon}`);
-    const locationInfo: LocationInfo = {
+    const locationInfo: Coordinates = {
       lat: response.data.lat,
       lon: response.data.lon,
     };
@@ -26,8 +21,8 @@ export async function getMyIP(): Promise<LocationInfo> {
   } catch (error) {
     console.log(error);
     return {
-      lat: '',
-      lon: '',
+      lat: 0,
+      lon: 0,
     };
   }
 }
@@ -46,7 +41,7 @@ export interface AddressType {
   importance: number;
 }
 
-export async function getCoordinatesFromLocation(location: string): Promise<LocationInfo> {
+export async function getCoordinatesFromLocation(location: string): Promise<Coordinates> {
   try {
     const response = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=6644b7d57947c208485978dacc7bcd6`);
     const locationInfo = response.data.find((address : AddressType) => address.display_name.includes('Airport')) || response.data[0];
@@ -57,8 +52,8 @@ export async function getCoordinatesFromLocation(location: string): Promise<Loca
   } catch (error) {
     console.log(error);
     return {
-      lat: '',
-      lon: '',
+      lat: 0,
+      lon: 0,
     };
   }
 }

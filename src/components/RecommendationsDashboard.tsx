@@ -3,23 +3,24 @@ import { Box, Button, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import { RecommendationType } from '@/types';
 import { useAuth0 } from '@auth0/auth0-react';
+import { UserAPI } from '@/api/user.api';
+import { FlightAPI } from '@/api/flight.api';
 import FlightCard from './FlightCard';
 
 export default function RecommendationsDashboard() {
-  // eslint-disable-next-line no-unused-vars
   const [recommendations, setRecommendations] = useState<RecommendationType[]>([]);
-  // eslint-disable-next-line no-unused-vars
   const [lastUpdated, setLastUpdated] = useState<string>('never');
   const router = useRouter();
   const { user } = useAuth0();
 
   const fetchRecommendations = async () => {
     try {
-      // const recommendations = await FlightAPI.getRecommendations();
-      // const lastUpdated = await FlightAPI.getLastUpdated();
-      // setLastUpdated(lastUpdated.data);
-      // setRecommendations(recommendations.data);
-      console.log('recommendations fetched');
+      const fetchedRecommendations = await UserAPI.getUserRecommendations(user?.sub || '');
+      setLastUpdated(fetchedRecommendations.data.recommendationsDate);
+      const recommendationsResult = await FlightAPI.getRecommendations(
+        fetchedRecommendations.data.recommendationsId,
+      );
+      setRecommendations(recommendationsResult.data.result);
     } catch (error) {
       console.error('Error fetching recommendations:', error);
     }
@@ -27,7 +28,7 @@ export default function RecommendationsDashboard() {
 
   useEffect(() => {
     fetchRecommendations();
-  }, []);
+  }, [user]);
 
   if (user) {
     return (

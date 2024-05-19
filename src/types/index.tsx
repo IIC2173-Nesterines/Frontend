@@ -39,7 +39,28 @@ export interface UserType {
   username: string;
 }
 
+export interface upcomingFlightsType {
+  purchaseDate: string;
+  destinationAirportId: string;
+}
+
 export interface RecommendationType {
   id: number;
   flight: FlightType;
+}
+
+export interface Coordinates {
+  lat: number;
+  lon: number;
+}
+
+interface FlightCoordType {
+  flight_coord: Coordinates
+  flight_id: number;
+  price: number;
+}
+
+export interface RecType {
+  flights: FlightCoordType[];
+  ip_coord: Coordinates;
 }

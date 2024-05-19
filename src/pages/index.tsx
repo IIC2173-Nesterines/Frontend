@@ -1,6 +1,6 @@
 'use client';
 
-import { useUser } from '@auth0/nextjs-auth0/client';
+import { useAuth0 } from '@auth0/auth0-react';
 import NavBar from '@/components/NavBar';
 import FlightsDashboard from '@/components/FlightsDashboard';
 import {
@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { UserAPI } from '../api/user.api';
 
 export default function Home() {
-  const { user, isLoading } = useUser();
+  const { user, isLoading } = useAuth0();
   const [isEffectExecuted, setIsEffectExecuted] = useState(false);
 
   useEffect(() => {
@@ -24,6 +24,7 @@ export default function Home() {
 
           // Check if user exists in the system
           const existingUser = await UserAPI.checkUser(userId);
+          console.log(existingUser.data);
 
           // If user does not exist, create a new user
           if (!existingUser.data) {

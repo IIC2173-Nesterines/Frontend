@@ -1,28 +1,63 @@
 import {
-  AppBar, Button, Toolbar, Typography,
+  AppBar, Button, Toolbar, Typography, Divider,
 } from '@mui/material'; // Import the AppBar component from the Material UI library
-import React from 'react';
-import { useUser } from '@auth0/nextjs-auth0/client';
+import React, { useEffect, useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+import Link from 'next/link';
+import { FlightAPI } from '@/api/flight.api';
 
 export default function NavBar() {
-  const { user } = useUser();
-  if (user) {
+  // eslint-disable-next-line no-unused-vars
+  const [isRecommendationsServiceRunning, setRecommendationsServiceState] = useState(false);
+  const {
+    isAuthenticated, user, loginWithRedirect, logout,
+  } = useAuth0();
+
+  useEffect(() => {
+    const fetchRecommendationsServiceState = async () => {
+      try {
+        const recommendationsServiceState = await FlightAPI.getRecommendationsStatus();
+        setRecommendationsServiceState(recommendationsServiceState.data);
+        console.log('Recommendations service state fetched');
+      } catch (error) {
+        console.error('Error fetching recommendations service state:', error);
+      }
+    };
+    fetchRecommendationsServiceState();
+  }, []);
+
+  if (isAuthenticated) {
     return (
-      <AppBar position="static">
+      <AppBar position="sticky">
         <Toolbar>
           <Typography variant="h5" sx={{ flexGrow: 1 }}>
-            <a href="/" style={{ textDecoration: 'none', color: 'inherit' }}>Nesterines Flights</a>
+            <Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}>Nesterines Flights</Link>
+          </Typography>
+          <Typography variant="h6" sx={{ color: 'white', flexGrow: 1, marginRight: 3 }}>
+            Recommendations:
+            {' '}
+            {isRecommendationsServiceRunning ? 'ON' : 'OFF'}
           </Typography>
           <Typography variant="h6" sx={{ color: 'white', flexGrow: 0, marginRight: 3 }}>
             {user?.nickname || ''}
           </Typography>
-          <Button variant="contained" href="/profile" sx={{ backgroundColor: '#fff', color: '#222', marginRight: 2 }}>
+          <Link href="/profile" style={{ textDecoration: 'none', color: 'inherit', marginRight: 10 }}>
             My Profile
-          </Button>
-          <Button variant="contained" href="/flights" sx={{ backgroundColor: '#fff', color: '#222', marginRight: 2 }}>
+          </Link>
+          <Divider orientation="vertical" flexItem style={{ marginRight: 10 }} variant="middle" />
+          <Link href="/flights" style={{ textDecoration: 'none', color: 'inherit', marginRight: 10 }}>
             Check Flights
-          </Button>
-          <Button variant="contained" href="/api/auth/logout" sx={{ backgroundColor: '#fff', color: '#222' }}>
+          </Link>
+          <Divider orientation="vertical" flexItem style={{ marginRight: 10 }} variant="middle" />
+          <Link href="/recommendations" style={{ textDecoration: 'none', color: 'inherit', marginRight: 10 }}>
+            Check Recommendations
+          </Link>
+          <Divider orientation="vertical" flexItem style={{ marginRight: 10 }} variant="middle" />
+          <Button
+            variant="contained"
+            onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
+            sx={{ backgroundColor: '#fff', color: '#222' }}
+          >
             Sign out
           </Button>
         </Toolbar>
@@ -30,12 +65,12 @@ export default function NavBar() {
     );
   }
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <Toolbar>
         <Typography variant="h5" sx={{ flexGrow: 1 }}>
-          <a href="/" style={{ textDecoration: 'none', color: 'inherit' }}>Nesterines Flights</a>
+          <Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}>Nesterines Flights</Link>
         </Typography>
-        <Button variant="contained" href="/api/auth/login" sx={{ backgroundColor: '#fff', color: '#222' }}>
+        <Button variant="contained" onClick={() => loginWithRedirect()} sx={{ backgroundColor: '#fff', color: '#222' }}>
           Sign in
         </Button>
       </Toolbar>

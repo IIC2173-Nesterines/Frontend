@@ -1,5 +1,6 @@
 import React from 'react';
 import { FlightType } from '@/types';
+import { useRouter } from 'next/router';
 
 import {
   Typography,
@@ -11,6 +12,7 @@ import {
 import formatDate from '@/utils';
 
 export default function FlightCard({ flight }: { flight: FlightType }) {
+  const router = useRouter();
   return (
     <Card className="w-64" variant="outlined">
       <CardContent>
@@ -32,7 +34,7 @@ export default function FlightCard({ flight }: { flight: FlightType }) {
           {flight.airline}
         </Typography>
         <CardActions>
-          <Button size="small" href={`/flights/${flight.id}`}> Ver Detalles</Button>
+          <Button size="small" onClick={() => router.push(`/flights?id=${flight.id}`)}> Ver Detalles</Button>
         </CardActions>
       </CardContent>
     </Card>

@@ -1,4 +1,5 @@
 # IIC2173 Arquitectura de Sistemas de Software: E1
+
 Estudiantes:
 
 * Beatriz Errázuriz
@@ -11,7 +12,7 @@ Estudiantes:
 
 Para ejecutar localmente el proyecto, se debe tener sistema operativo Linux o MacOS, con Node.js y Postgresql instalados. Luego, se debe clonar el repositorio del proyecto y abrir una consola en el directorio del frontend. En el directorio del frontend, se debe ejecutar el comando `npm install` para actualizar las dependencias del proyecto. Para correr el proyecto, se debe configurar un archivo `.env` con las siguientes variables de entorno:
 
-```
+```[.env]
 NEXT_PUBLIC_AUTH0_SECRET=1a91ce746bd1544d602acc7cbae4129a03df260b9ac4a0404a5a4bc24ac8f613
 NEXT_PUBLIC_AUTH0_ISSUER_BASE_URL=https://dev-lqyab7kegcbrfeto.us.auth0.com
 NEXT_PUBLIC_AUTH0_CLIENT_ID=cOStGrOnfpDh1fq1XZRWm3YW5Ecwa3Za

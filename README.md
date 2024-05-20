@@ -33,6 +33,6 @@ Para implementar WebPay usamos la API de WebPay de Transbank. `https://webpay3gi
 
 1. Al minuto de comprar un vuelo se crea una nueva transacción y se hace un *POST* a la API de WebPay.
 2. Ese llamado retorna un *token* el cual se entrega al broker mediante el canal `flights/requests` y también se crea una instancia del modelo `Request` en la base de datos entregando también el token como atributo
-3. Si se envía correctamente al broker se redirige a la página de WebPay para realizar el pago por medio de un *POST* a la url entregada por el primer llamado entregando el *token*.
+3. Si se envía correctamente al broker se redirige a la página de WebPay para realizar el pago por medio de un *POST* a la url entregada por el primer llamado entregando el *token*. Para el pago en ambiente de testeo se debe usar el número de tarjeta *4051 8856 0044 6623*, con CVV *123* y cualquier fecha de expiración. Para el banco se debe usar el RUT *11.111.111-1* y la clave *123*.
 4. Después de hacer el pago WebPay redirige la aplicación a la página de `transactions` donde con el token (que se recibe como query) se hace un llamado a la API de WebPay para obtener el *estado* de la transacción.
 5. Para validar en el broker se busca la request correspondiente por su token y se envia el estado por medio del canal `flights/validation`.

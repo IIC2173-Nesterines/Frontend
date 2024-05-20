@@ -42,9 +42,9 @@ export default function ProfileInfo() {
     if (user && !isEffectExecuted) {
       const fetchTicket = async (): Promise<void> => {
         try {
-          const ticketsToFetch = await FlightAPI.getAllTickets(user.sub || '');
+          const ticketToFetch = await FlightAPI.getAllTickets(user.sub || '');
           const fetchedTickets = await Promise.all(
-            ticketsToFetch.data.map(async (ticketItem: TicketType) => {
+            ticketToFetch.data.map(async (ticketItem: TicketType) => {
               const flight = await FlightAPI.getFlight(ticketItem.flightId);
               const updatedTicket = { ...ticketItem, flight: flight.data };
               return updatedTicket;
@@ -63,7 +63,7 @@ export default function ProfileInfo() {
 
   if (user) {
     return (
-      <Box className="h-full w-full flex flex-col mt-16">
+      <Box className="h-full w-full flex flex-col">
         <Box className="flex items-center gap-4 flex-col">
           <Typography variant="h4" component="div" sx={{ marginLeft: 2 }} className="text-black">
             {user?.nickname || ''}

@@ -31,15 +31,35 @@ export default function FlightInfo({ id } : { id: number }) {
 
   const [ticketCount, setTicketCount] = useState(1);
 
+  const sleep = (ms: number) => new Promise((resolve) => { setTimeout(resolve, ms); });
+
   const generateRecommendations = async () => {
     try {
       const upcomingFlights = await FlightAPI.getUpcomingFlights({
         purchaseDate: new Date().toISOString(),
         destinationAirportId: flight.arrivalAirportId,
       });
-      const flightsCoordinates = upcomingFlights.data.map((upcomingFlight: FlightType) => (
-        getCoordinatesFromLocation(upcomingFlight.departureAirportId)
-      ));
+      const getCoordinatesWithDelay = async (airportId: string, delay: number) => {
+        await sleep(delay);
+        return getCoordinatesFromLocation(airportId);
+      };
+      const flightsCoordinatesPromises = upcomingFlights.data.map(async (
+        upcomingFlight: {
+          'id': number,
+          'price': number,
+          'arrivalAirportId': string,
+        },
+        index: number,
+      ) => {
+        const flightToCoordinate = upcomingFlight.arrivalAirportId;
+        const coordinates = await getCoordinatesWithDelay(flightToCoordinate, 1000 * index);
+        return {
+          flight_id: upcomingFlight.id,
+          price: upcomingFlight.price,
+          flight_coord: coordinates,
+        };
+      });
+      const flightsCoordinates = await Promise.all(flightsCoordinatesPromises);
       const getUserIp = await getMyIP();
       await FlightAPI.generateRecommendations({
         flights: flightsCoordinates,

@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Typography } from '@mui/material';
-import { useRouter } from 'next/router';
-import { RecommendationType } from '@/types';
+import { Box, Typography } from '@mui/material';
+import { FlightType } from '@/types';
 import { useAuth0 } from '@auth0/auth0-react';
 import { UserAPI } from '@/api/user.api';
 import { FlightAPI } from '@/api/flight.api';
 import FlightCard from './FlightCard';
 
 export default function RecommendationsDashboard() {
-  const [recommendations, setRecommendations] = useState<RecommendationType[]>([]);
+  const [recommendations, setRecommendations] = useState<FlightType[]>([]);
   const [lastUpdated, setLastUpdated] = useState<string>('never');
-  const router = useRouter();
   const { user } = useAuth0();
 
   const fetchRecommendations = async () => {
@@ -20,7 +18,14 @@ export default function RecommendationsDashboard() {
       const recommendationsResult = await FlightAPI.getRecommendations(
         fetchedRecommendations.data.recommendationsId,
       );
-      setRecommendations(recommendationsResult.data.result);
+      const flightsPromises = recommendationsResult.data.result.map(
+        async (rec: { flight_id: number }) => {
+          const flightData = await FlightAPI.getFlight(rec.flight_id);
+          return flightData.data;
+        },
+      );
+      const flights = await Promise.all(flightsPromises);
+      setRecommendations(flights);
     } catch (error) {
       console.error('Error fetching recommendations:', error);
     }
@@ -44,10 +49,7 @@ export default function RecommendationsDashboard() {
           {
             recommendations.map((recommendation) => (
               <Box key={recommendation.id}>
-                <FlightCard flight={recommendation.flight} key={recommendation.flight.id} />
-                <Box className="flex justify-center mt-2">
-                  <Button variant="contained" onClick={() => router.push(`/flights?id=${recommendation.flight.id}`)}>Go To Flight</Button>
-                </Box>
+                <FlightCard flight={recommendation} key={recommendation.id} />
               </Box>
             ))
           }

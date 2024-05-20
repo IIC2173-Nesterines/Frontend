@@ -46,8 +46,8 @@ export async function getCoordinatesFromLocation(location: string): Promise<Coor
     const response = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=6644b7d57947c208485978dacc7bcd6`);
     const locationInfo = response.data.find((address : AddressType) => address.display_name.includes('Airport')) || response.data[0];
     return {
-      lat: locationInfo.lat,
-      lon: locationInfo.lon,
+      lat: parseFloat(locationInfo.lat),
+      lon: parseFloat(locationInfo.lon),
     };
   } catch (error) {
     console.log(error);

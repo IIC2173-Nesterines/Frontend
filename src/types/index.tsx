@@ -57,11 +57,6 @@ export interface upcomingFlightsType {
   destinationAirportId: string;
 }
 
-export interface RecommendationType {
-  id: number;
-  flight: FlightType;
-}
-
 export interface Coordinates {
   lat: number;
   lon: number;

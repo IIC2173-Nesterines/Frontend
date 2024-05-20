@@ -51,7 +51,7 @@ export interface validateTransactionType {
   valid: boolean;
   request_id: string;
 }
-  
+
 export interface upcomingFlightsType {
   purchaseDate: string;
   destinationAirportId: string;

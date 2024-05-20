@@ -24,7 +24,6 @@ export default function Home() {
 
           // Check if user exists in the system
           const existingUser = await UserAPI.checkUser(userId);
-          console.log(existingUser.data);
 
           // If user does not exist, create a new user
           if (!existingUser.data) {

@@ -46,3 +46,8 @@ export interface createTransactionType {
   amount: number;
   return_url: string;
 }
+
+export interface validateTransactionType {
+  valid: boolean;
+  request_id: string;
+}

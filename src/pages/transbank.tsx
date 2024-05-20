@@ -10,9 +10,22 @@ export default function Transbank() {
   const [transactionStatus, setTransactionStatus] = useState('');
   const { token_ws } = router.query;
 
+  const publishStatus = async (token: string, validate: boolean) => {
+    const publishStatusAPI = await TransbankAPI.getRequest(token);
+    await TransbankAPI.validateTransaction({
+      valid: validate,
+      request_id: publishStatusAPI.data.request_id,
+    });
+  };
+
   const getTransactionStatus = async (token: string) => {
     const getTransactionStatusAPI = await TransbankAPI.getTransactionStatus(token);
     setTransactionStatus(getTransactionStatusAPI.data.status);
+    if (getTransactionStatusAPI.data.status === 'AUTHORIZED') {
+      await publishStatus(token, true);
+    } else if (getTransactionStatusAPI.data.status === 'FAILED' || getTransactionStatusAPI.data.status === 'REVERSED') {
+      await publishStatus(token, false);
+    }
   };
 
   const getStatusColor = () => {
@@ -29,8 +42,6 @@ export default function Transbank() {
   };
 
   useEffect(() => {
-    console.log(router.query);
-    console.log('token:', token_ws);
     if (typeof token_ws === 'string') {
       getTransactionStatus(token_ws);
     }

@@ -22,9 +22,6 @@ export default function NavBar() {
           <Link href="/profile" style={{ textDecoration: 'none', color: 'inherit', marginRight: 10 }}>
             My Profile
           </Link>
-          <Link href="/flights" style={{ textDecoration: 'none', color: 'inherit', marginRight: 3 }}>
-            Check Flights
-          </Link>
           <Button
             variant="contained"
             onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}

@@ -1,11 +1,16 @@
 import axios from 'axios';
-import { createTransactionType } from '@/types';
+import { createTransactionType, validateTransactionType } from '@/types';
 
-const createTransaction = `${process.env.NEXT_PUBLIC_API_BASE_URL}/transactions`;
-const getTransactionsStatus = `${process.env.NEXT_PUBLIC_API_BASE_URL}/transactions`;
+const viewTransactions = `${process.env.NEXT_PUBLIC_API_BASE_URL}/transactions`;
+const getRequest = `${process.env.NEXT_PUBLIC_API_BASE_URL}/transactions/requests`;
+const validateTransaction = `${process.env.NEXT_PUBLIC_API_BASE_URL}/transactions/validate`;
 
 // eslint-disable-next-line import/prefer-default-export
 export const TransbankAPI = {
-  createTransaction: async (data: createTransactionType) => axios.post(createTransaction, data),
-  getTransactionStatus: async (token: string) => axios.get(`${getTransactionsStatus}/${token}`),
+  createTransaction: async (data: createTransactionType) => axios.post(viewTransactions, data),
+  getTransactionStatus: async (token: string) => axios.get(`${viewTransactions}/${token}`),
+  getRequest: async (token: string) => axios.get(`${getRequest}/${token}`),
+  validateTransaction: async (data: validateTransactionType) => (
+    axios.post(validateTransaction, data)
+  ),
 };

@@ -31,6 +31,7 @@ export interface RequestType {
   quantity: number;
   flight_id: number;
   datetime: string;
+  deposit_token: string;
 }
 
 export interface UserType {
@@ -39,14 +40,21 @@ export interface UserType {
   username: string;
 }
 
+export interface createTransactionType {
+  buy_order: string;
+  session_id: string;
+  amount: number;
+  return_url: string;
+}
+
+export interface validateTransactionType {
+  valid: boolean;
+  request_id: string;
+}
+
 export interface upcomingFlightsType {
   purchaseDate: string;
   destinationAirportId: string;
-}
-
-export interface RecommendationType {
-  id: number;
-  flight: FlightType;
 }
 
 export interface Coordinates {

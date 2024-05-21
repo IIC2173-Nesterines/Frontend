@@ -8,6 +8,7 @@ import { TransbankAPI } from '@/api/transbank.api';
 import formatDate, { getCoordinatesFromLocation, getMyIP } from '@/utils';
 import { FlightType } from '@/types';
 import { useAuth0 } from '@auth0/auth0-react';
+import { sendEmail } from '@/api/email.api';
 
 export default function FlightInfo({ id } : { id: number }) {
   const { user } = useAuth0();
@@ -99,6 +100,12 @@ export default function FlightInfo({ id } : { id: number }) {
         form.appendChild(tokenField);
         document.body.appendChild(form);
         form.submit();
+
+        await sendEmail(
+          user?.email || '',
+          'Flight Booking Confirmation',
+          `You have successfully booked ${ticketCount} ticket(s) for the flight from ${flight.departureAirportId} to ${flight.arrivalAirportId} on ${formatDate(flight.departureDate)}.`,
+        );
       }
     } catch (error) {
       console.error('Error booking flight:', error);

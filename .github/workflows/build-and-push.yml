@@ -10,24 +10,8 @@ permissions:
   contents: read
 
 jobs:
-  create-envfile:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Create .env file
-        uses: SpicyPizza/create-envfile@v2.0.3
-        with:
-          envkey_NEXT_PUBLIC_AUTH0_SECRET: ${{ secrets.NEXT_PUBLIC_AUTH0_SECRET }}
-          envkey_NEXT_PUBLIC_AUTH0_BASE_URL: ${{ secrets.NEXT_PUBLIC_AUTH0_BASE_URL }}
-          envkey_NEXT_PUBLIC_AUTH0_ISSUER_BASE_URL: ${{ secrets.NEXT_PUBLIC_AUTH0_ISSUER_BASE_URL }}
-          envkey_NEXT_PUBLIC_AUTH0_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_AUTH0_CLIENT_ID }}
-          envkey_NEXT_PUBLIC_AUTH0_CLIENT_SECRET: ${{ secrets.NEXT_PUBLIC_AUTH0_CLIENT_SECRET }}
-          envkey_NEXT_PUBLIC_AUTH0_AUDIENCE: ${{ secrets.NEXT_PUBLIC_AUTH0_AUDIENCE }}
-          envkey_NEXT_PUBLIC_API_BASE_URL: ${{ secrets.NEXT_PUBLIC_API_BASE_URL }}
-          envkey_NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
-
   build-and-push:
     runs-on: ubuntu-latest
-    needs: create-envfile
 
     steps:
       - name: Checkout code
@@ -39,6 +23,21 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID0 }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY0 }}
           aws-region: us-east-1
+      
+      - name: Create .env file
+        uses: SpicyPizza/create-envfile@v2.0.3
+        with:
+          envkey_NEXT_PUBLIC_AUTH0_SECRET: ${{ secrets.NEXT_PUBLIC_AUTH0_SECRET }}
+          envkey_NEXT_PUBLIC_AUTH0_BASE_URL: ${{ secrets.NEXT_PUBLIC_AUTH0_BASE_URL }}
+          envkey_NEXT_PUBLIC_AUTH0_ISSUER_BASE_URL: ${{ secrets.NEXT_PUBLIC_AUTH0_ISSUER_BASE_URL }}
+          envkey_NEXT_PUBLIC_AUTH0_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_AUTH0_CLIENT_ID }}
+          envkey_NEXT_PUBLIC_AUTH0_CLIENT_SECRET: ${{ secrets.NEXT_PUBLIC_AUTH0_CLIENT_SECRET }}
+          envkey_NEXT_PUBLIC_AUTH0_AUDIENCE: ${{ secrets.NEXT_PUBLIC_AUTH0_AUDIENCE }}
+          envkey_NEXT_PUBLIC_API_BASE_URL: ${{ secrets.NEXT_PUBLIC_API_BASE_URL }}
+          envkey_NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
+          directory: ./
+          file_name: .env
+          fail_on_empty: true
       
       - name: Push to S3
         env:

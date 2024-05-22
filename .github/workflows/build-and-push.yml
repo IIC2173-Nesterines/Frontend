@@ -24,6 +24,9 @@ jobs:
           envkey_NEXT_PUBLIC_AUTH0_AUDIENCE: ${{ secrets.NEXT_PUBLIC_AUTH0_AUDIENCE }}
           envkey_NEXT_PUBLIC_API_BASE_URL: ${{ secrets.NEXT_PUBLIC_API_BASE_URL }}
           envkey_NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
+          directory: ./
+          file_name: .env
+          fail_on_empty: true
 
   build-and-push:
     runs-on: ubuntu-latest

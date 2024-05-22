@@ -28,6 +28,7 @@ jobs:
         env:
           AWS_S3_BUCKET: proyecto-arqui
         run: |
+          npm install
           npm run build
           aws s3 sync out/ s3://$AWS_S3_BUCKET --delete
           aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} \

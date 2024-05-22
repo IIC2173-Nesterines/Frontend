@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Coordinates } from '@/types';
 
 // convert date format to YY MM DD HH:SS
 const formatDate = (dateString: string): string => {
@@ -8,42 +9,51 @@ const formatDate = (dateString: string): string => {
 
 export default formatDate;
 
-interface LocationInfo {
-  city: string;
-  region: string;
-  country: string;
-  loc: string;
-  postal: string;
-}
-
-async function getLocation(ipAddress: string | any): Promise<LocationInfo | string> {
-  const accessToken = '20e93d1df354b0'; // Reemplaza 'tu_clave_api' con tu clave de API real
-  const url = `https://ipinfo.io/${ipAddress}/json?token=${accessToken}`;
-  console.log('URL:', url);
-
+export async function getMyIP(): Promise<Coordinates> {
   try {
-    const response = await axios.get(url);
-    const { data } = response;
-    return {
-      city: data.city || 'No disponible',
-      region: data.region || 'No disponible',
-      country: data.country || 'No disponible',
-      loc: data.loc || 'No disponible',
-      postal: data.postal || 'No disponible',
+    // const response = await axios.get('https://api.ipify.org?format=json');
+    const response = await axios.get('http://ip-api.com/json');
+    const locationInfo: Coordinates = {
+      lat: response.data.lat,
+      lon: response.data.lon,
     };
+    return locationInfo;
   } catch (error) {
-    return `Error al obtener la ubicación: ${error}`;
+    console.log(error);
+    return {
+      lat: 0,
+      lon: 0,
+    };
   }
 }
 
-export async function getMyIP(): Promise<LocationInfo | string> {
+export interface AddressType {
+  place_id: number;
+  licence: string;
+  osm_type: string;
+  osm_id: number;
+  boundingbox: [string, string, string, string];
+  lat: string;
+  lon: string;
+  display_name: string;
+  class: string;
+  type: string;
+  importance: number;
+}
+
+export async function getCoordinatesFromLocation(location: string): Promise<Coordinates> {
   try {
-    const response = await axios.get('https://api.ipify.org?format=json');
-    console.log('Tu IP es:', response.data.ip);
-    const data = getLocation(response.data.ip);
-    return data;
+    const response = await axios.get(`https://geocode.maps.co/search?q=${location}&api_key=6644b7d57947c208485978dacc7bcd6`);
+    const locationInfo = response.data.find((address : AddressType) => address.display_name.includes('Airport')) || response.data[0];
+    return {
+      lat: parseFloat(locationInfo.lat),
+      lon: parseFloat(locationInfo.lon),
+    };
   } catch (error) {
-    console.error('Error obteniendo la IP:', error);
-    return 'No se pudo obtener la IP';
+    console.log(error);
+    return {
+      lat: 0,
+      lon: 0,
+    };
   }
 }

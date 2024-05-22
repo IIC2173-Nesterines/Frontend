@@ -10,9 +10,20 @@ permissions:
   contents: read
 
 jobs:
-  create-envfile:
+  build-and-push:
     runs-on: ubuntu-latest
+
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID0 }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY0 }}
+          aws-region: us-east-1
+      
       - name: Create .env file
         uses: SpicyPizza/create-envfile@v2.0.3
         with:
@@ -27,21 +38,6 @@ jobs:
           directory: ./
           file_name: .env
           fail_on_empty: true
-
-  build-and-push:
-    runs-on: ubuntu-latest
-    needs: create-envfile
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID0 }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY0 }}
-          aws-region: us-east-1
       
       - name: Push to S3
         env:

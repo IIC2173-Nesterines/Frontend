@@ -5,7 +5,6 @@ Estudiantes:
 * Beatriz Errázuriz
 * Daniel Sebastián
 * Diego Sfeir
-* Eduardo Soto
 * Joaquín Viñuela
 
 ## Instrucciones para Ejecutar Localmente

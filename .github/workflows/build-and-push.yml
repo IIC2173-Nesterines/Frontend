@@ -13,8 +13,8 @@ jobs:
   create-envfile:
     runs-on: ubuntu-latest
     steps:
-      - name: Make envfile
-        uses: ScipyPizza/create-envfile@v2.0
+      - name: Create .env file
+        uses: SpicyPizza/create-envfile@v2.0.3
         with:
           envkey_NEXT_PUBLIC_AUTH0_SECRET: ${{ secrets.NEXT_PUBLIC_AUTH0_SECRET }}
           envkey_NEXT_PUBLIC_AUTH0_BASE_URL: ${{ secrets.NEXT_PUBLIC_AUTH0_BASE_URL }}

@@ -45,7 +45,7 @@ export default function Transbank() {
     if (typeof token_ws === 'string') {
       getTransactionStatus(token_ws);
     }
-  }, [token_ws]);
+  }, [token_ws, getTransactionStatus]);
 
   return (
     <Box className="flex w-screen h-screen flex-col">

@@ -10,7 +10,7 @@ const viewRecommendations = `${process.env.NEXT_PUBLIC_API_BASE_URL}/requests/re
 export const FlightAPI = {
   getFlights: (amount:number, page:number) => axiosInstance.get(`${viewFlights}?amount=${amount}&page=${page}`),
   getAllFlights: () => axiosInstance.get(viewFlights),
-  getFlight: (id:number) => axiosInstance.get(`${viewFlights}/${id}`),
+  getFlight: (id:number) => axiosInstance.get(encodeURIComponent(`${viewFlights}/${id}`)),
   getAllTickets: (sessionId: string) => axiosInstance.get(encodeURIComponent(`${viewTickets}/${sessionId}`)),
   bookFlight: (data: RequestType) => axiosInstance.post(viewRequests, data),
   getUpcomingFlights: (data: upcomingFlightsType) => axiosInstance.post(`${viewFlights}/upcoming`, data),

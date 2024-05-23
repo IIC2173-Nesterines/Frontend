@@ -8,6 +8,7 @@ import NavBar from '@/components/NavBar';
 export default function Transbank() {
   const router = useRouter();
   const [transactionStatus, setTransactionStatus] = useState('');
+  const [isEffectExecuted, setIsEffectExecuted] = useState(false);
   const { token_ws } = router.query;
 
   const publishStatus = async (token: string, validate: boolean) => {
@@ -20,6 +21,7 @@ export default function Transbank() {
 
   const getTransactionStatus = async (token: string) => {
     const getTransactionStatusAPI = await TransbankAPI.getTransactionStatus(token);
+    console.log('my status', getTransactionStatusAPI);
     setTransactionStatus(getTransactionStatusAPI.data.status);
     if (getTransactionStatusAPI.data.status === 'AUTHORIZED') {
       await publishStatus(token, true);
@@ -42,8 +44,9 @@ export default function Transbank() {
   };
 
   useEffect(() => {
-    if (typeof token_ws === 'string') {
+    if (typeof token_ws === 'string' && !isEffectExecuted) {
       getTransactionStatus(token_ws);
+      setIsEffectExecuted(true);
     }
   }, [token_ws]);
 

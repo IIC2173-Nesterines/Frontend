@@ -42,7 +42,9 @@ export default function FlightInfo({ id } : { id: number }) {
       });
       const getCoordinatesWithDelay = async (airportId: string, delay: number) => {
         await sleep(delay);
-        return getCoordinatesFromLocation(airportId);
+        const coordiantesAPI = await getCoordinatesFromLocation(airportId);
+        console.log('fetching', coordiantesAPI);
+        return coordiantesAPI;
       };
       const flightsCoordinatesPromises = upcomingFlights.data.map(async (
         upcomingFlight: {
@@ -77,7 +79,7 @@ export default function FlightInfo({ id } : { id: number }) {
         buy_order: '1',
         session_id: user?.sub || '',
         amount: flight.price * ticketCount,
-        return_url: `${process.env.NEXT_PUBLIC_BASE_URL}/transbank`,
+        return_url: `${process.env.NEXT_PUBLIC_BASE_URL}`,
       });
       const booked = await FlightAPI.bookFlight({
         session_id: user?.sub || '',

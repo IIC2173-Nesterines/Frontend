@@ -7,6 +7,7 @@ import FlightInfo from '@/components/FlightInfo';
 export default function FlightsPage() {
   const { user, isLoading } = useAuth0();
   const router = useRouter();
+  // eslint-disable-next-line camelcase
   const { id } = router.query; // Extrae el ID directamente del objeto query
 
   if (isLoading) return <div>Loading...</div>;

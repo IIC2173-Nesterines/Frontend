@@ -109,6 +109,7 @@ export default function FlightInfo({ id } : { id: number }) {
       }
     } catch (error) {
       console.error('Error booking flight:', error);
+      alert('Error booking flight. Please try again later.');
     }
   };
 

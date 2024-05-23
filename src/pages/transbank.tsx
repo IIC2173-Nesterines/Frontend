@@ -43,7 +43,10 @@ export default function Transbank() {
 
   useEffect(() => {
     if (typeof token_ws === 'string') {
+      console.log(token_ws);
       getTransactionStatus(token_ws);
+    } else {
+      console.log('No token');
     }
   }, [token_ws, getTransactionStatus]);
 

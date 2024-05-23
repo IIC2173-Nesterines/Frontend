@@ -106,6 +106,9 @@ export default function FlightInfo({ id } : { id: number }) {
           'Flight Booking Confirmation',
           `You have successfully booked ${ticketCount} ticket(s) for the flight from ${flight.departureAirportId} to ${flight.arrivalAirportId} on ${formatDate(flight.departureDate)}.`,
         );
+      } else {
+        console.log('Error booking flight:', booked.status, booked.data);
+        alert('Error booking flight. Please try again later.');
       }
     } catch (error) {
       console.error('Error booking flight:', error);

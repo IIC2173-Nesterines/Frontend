@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TicketType } from '@/types';
 import { downloadReceipt } from '@/api/download.api';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -13,10 +13,11 @@ import formatDate from '@/utils';
 
 export default function TicketCard({ ticket }: { ticket: TicketType }) {
   const { user } = useAuth0();
+  const [link, setLink] = useState('');
 
   const handleDownloadReceipt = async () => {
     try {
-      await downloadReceipt(
+      const receipt = await downloadReceipt(
         user?.nickname ?? '',
         user?.email ?? '', // Provide a default value for user?.email
         ticket.flight.departureAirportId,
@@ -26,6 +27,7 @@ export default function TicketCard({ ticket }: { ticket: TicketType }) {
         ticket.flight.price,
         ticket.quantity,
       );
+      setLink(JSON.parse(receipt.body).link);
     } catch (error) {
       console.error('Error downloading receipt', error);
     }
@@ -57,8 +59,16 @@ export default function TicketCard({ ticket }: { ticket: TicketType }) {
           {ticket.quantity}
         </Typography>
         <Button variant="contained" color="primary" onClick={handleDownloadReceipt}>
-          Descargar Boleta
+          Generar Boleta
         </Button>
+        {link && (
+          <Button onClick={
+            () => window.open(link, '_blank')
+          }
+          >
+            Ver Boleta
+          </Button>
+        )}
       </CardContent>
     </Card>
   );

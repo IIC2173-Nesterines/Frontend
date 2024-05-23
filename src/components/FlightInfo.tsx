@@ -124,7 +124,7 @@ export default function FlightInfo({ id } : { id: number }) {
       const { data } = await FlightAPI.getFlight(id);
       setFlight(data);
     } catch (error) {
-      console.error('Error fetching flight:', error);
+      console.error('Error fetching flight: ', error);
     }
   };
 

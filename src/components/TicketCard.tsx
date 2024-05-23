@@ -1,14 +1,36 @@
 import React from 'react';
 import { TicketType } from '@/types';
+import { downloadReceipt } from '@/api/download.api';
+import { useAuth0 } from '@auth0/auth0-react';
 
 import {
   Typography,
   CardContent,
   Card,
+  Button,
 } from '@mui/material';
 import formatDate from '@/utils';
 
 export default function TicketCard({ ticket }: { ticket: TicketType }) {
+  const { user } = useAuth0();
+
+  const handleDownloadReceipt = async () => {
+    try {
+      await downloadReceipt(
+        user?.nickname ?? '',
+        user?.email ?? '', // Provide a default value for user?.email
+        ticket.flight.departureAirportId,
+        ticket.flight.departureDate,
+        ticket.flight.arrivalAirportId,
+        ticket.flight.arrivalDate,
+        ticket.flight.price,
+        ticket.quantity,
+      );
+    } catch (error) {
+      console.error('Error downloading receipt', error);
+    }
+  };
+
   return (
     <Card className="w-64" variant="outlined">
       <CardContent>
@@ -34,6 +56,9 @@ export default function TicketCard({ ticket }: { ticket: TicketType }) {
           {' '}
           {ticket.quantity}
         </Typography>
+        <Button variant="contained" color="primary" onClick={handleDownloadReceipt}>
+          Descargar Boleta
+        </Button>
       </CardContent>
     </Card>
   );

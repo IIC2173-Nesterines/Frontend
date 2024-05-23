@@ -11,10 +11,10 @@ export const FlightAPI = {
   getFlights: (amount:number, page:number) => axiosInstance.get(`${viewFlights}?amount=${amount}&page=${page}`),
   getAllFlights: () => axiosInstance.get(viewFlights),
   getFlight: (id:number) => axiosInstance.get(`${viewFlights}/${id}`),
-  getAllTickets: (sessionId: string) => axiosInstance.get(encodeURIComponent(`${viewTickets}/${sessionId}`)),
+  getAllTickets: (sessionId: string) => axiosInstance.get(`${viewTickets}/${sessionId}`),
   bookFlight: (data: RequestType) => axiosInstance.post(viewRequests, data),
   getUpcomingFlights: (data: upcomingFlightsType) => axiosInstance.post(`${viewFlights}/upcoming`, data),
-  generateRecommendations: (data: RecType, sessionId:string) => axiosInstance.post(encodeURIComponent(`${viewRecommendations}/${sessionId}`), data),
-  getRecommendations: (id:string) => axiosInstance.get(encodeURIComponent(`${viewRecommendations}/${id}`)),
+  generateRecommendations: (data: RecType, sessionId:string) => axiosInstance.post(`${viewRecommendations}/${sessionId}`, data),
+  getRecommendations: (id:string) => axiosInstance.get(`${viewRecommendations}/${id}`),
   getRecommendationsStatus: () => axiosInstance.get(viewRecommendations),
 };

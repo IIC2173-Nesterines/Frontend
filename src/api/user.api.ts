@@ -9,6 +9,6 @@ const viewRecommendations = `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/recom
 // eslint-disable-next-line import/prefer-default-export
 export const UserAPI = {
   login: (data: UserType) => axiosInstance.post(userCreate, data),
-  checkUser: (userId: string) => axiosInstance.get(encodeURIComponent(`${userCheck}/${userId}`)),
-  getUserRecommendations: (id:string) => axiosInstance.get(encodeURIComponent(`${viewRecommendations}/${id}`)),
+  checkUser: (userId: string) => axiosInstance.get(`${userCheck}/${userId}`),
+  getUserRecommendations: (id:string) => axiosInstance.get(`${viewRecommendations}/${id}`),
 };

@@ -12,7 +12,7 @@ export default formatDate;
 export async function getMyIP(): Promise<Coordinates> {
   try {
     // const response = await axios.get('https://api.ipify.org?format=json');
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/ip`);
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/requests/ip`);
     const locationInfo: Coordinates = {
       lat: response.data.lat,
       lon: response.data.lon,

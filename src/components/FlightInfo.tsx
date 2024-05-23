@@ -86,7 +86,7 @@ export default function FlightInfo({ id } : { id: number }) {
         datetime: new Date().toDateString(),
         deposit_token: startTransaction.data.token,
       });
-      if (booked.status === 201) {
+      if (booked.status === 201 || booked.status === 200) {
         await generateRecommendations();
         const form = document.createElement('form');
         form.method = 'POST';
@@ -106,6 +106,7 @@ export default function FlightInfo({ id } : { id: number }) {
           'Flight Booking Confirmation',
           `You have successfully booked ${ticketCount} ticket(s) for the flight from ${flight.departureAirportId} to ${flight.arrivalAirportId} on ${formatDate(flight.departureDate)}.`,
         );
+        alert('Flight booked successfully!');
       } else {
         console.log('Error booking flight:', booked.status, booked.data);
         alert('Error booking flight. Please try again later.');
